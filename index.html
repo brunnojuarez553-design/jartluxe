@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JART LUXE — Vehículos Extraordinarios · Nuevo León</title>
 <meta name="description" content="La boutique digital de automóviles premium de Nuevo León. Porsche, Mercedes-Benz, BMW, Audi. Compra, venta y consignación de vehículos de lujo.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preload" as="video" href="https://res.cloudinary.com/dvvuwigmy/video/upload/q_auto,f_auto/v1780869161/insta_video_50884_c4bnkn.mp4" fetchpriority="high">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,300;0,6..96,400;0,6..96,500;1,6..96,300;1,6..96,400&family=DM+Mono:wght@300;400&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
 
@@ -373,8 +374,9 @@ nav.scrolled {
 }
 .car-card:hover { z-index:2; }
 .car-img {
-  height:230px; overflow:hidden; position:relative;
-  display:flex; align-items:center; justify-content:center;
+  overflow:hidden; position:relative;
+  background:var(--ink-3);
+  aspect-ratio: 4/3;
 }
 .car-img-inner {
   width:100%; height:100%; transition:transform .8s var(--silk);
@@ -717,12 +719,13 @@ footer { background:var(--ink-1); border-top:1px solid rgba(201,169,110,0.08); }
   will-change:transform; user-select:none;
 }
 .car-slide {
-  min-width:100%; height:100%; flex-shrink:0; overflow:hidden;
+  min-width:100%; height:100%; flex-shrink:0;
   display:flex; align-items:center; justify-content:center;
+  background:var(--ink-3);
 }
 .car-slide img {
   width:100%; height:100%; object-fit:contain; object-position:center center;
-  pointer-events:none; background:var(--ink-3);
+  pointer-events:none; background:var(--ink-3); display:block;
 }
 .slider-dots {
   position:absolute; bottom:10px; left:0; right:0;
@@ -854,7 +857,7 @@ footer { background:var(--ink-1); border-top:1px solid rgba(201,169,110,0.08); }
   .filters { gap:6px; margin-bottom:36px; }
   .filter-btn { padding:9px 16px; font-size:9px; }
   .cars-grid { grid-template-columns:1fr 1fr; gap:2px; }
-  .car-img { height:220px; }
+  .car-img { aspect-ratio: 4/3; }
   .car-body { padding:18px 16px 20px; }
   .car-name { font-size:20px; margin-bottom:12px; }
   .car-specs { gap:14px; }
@@ -925,8 +928,7 @@ footer { background:var(--ink-1); border-top:1px solid rgba(201,169,110,0.08); }
 @media(max-width:640px) {
   .hero-scroll-cue { display:none; }
   .cars-grid { grid-template-columns:1fr; }
-  .car-img { height:240px; }
-  .car-slide img { object-fit:cover; object-position:center center; }
+  .car-slide img { object-fit:contain; }
   .brands-rail { grid-template-columns:1fr 1fr; }
   .footer-top { grid-template-columns:1fr; padding:40px 20px; }
   .frow { grid-template-columns:1fr; }
@@ -1018,19 +1020,19 @@ footer { background:var(--ink-1); border-top:1px solid rgba(201,169,110,0.08); }
 <!-- ━━━ HERO ━━━ -->
 <section class="hero">
   <div class="hero-bg">
-    <video autoplay muted loop playsinline preload="auto">
-      <source src="https://res.cloudinary.com/dvvuwigmy/video/upload/q_auto:best,vc_auto/v1780869161/insta_video_50884_c4bnkn.mp4" type="video/mp4">
+    <video autoplay muted loop playsinline preload="auto" fetchpriority="high">
+      <source src="https://res.cloudinary.com/dvvuwigmy/video/upload/q_auto,f_auto/v1780869161/insta_video_50884_c4bnkn.mp4" type="video/mp4">
     </video>
   </div>
   <div class="hero-video-wrap">
     <video autoplay muted loop playsinline preload="auto">
-      <source src="https://res.cloudinary.com/dvvuwigmy/video/upload/q_auto:best,vc_auto/v1780867850/insta_video_87032_axh9uf.mp4" type="video/mp4">
+      <source src="https://res.cloudinary.com/dvvuwigmy/video/upload/q_auto,f_auto/v1780867850/insta_video_87032_axh9uf.mp4" type="video/mp4">
     </video>
   </div>
   <!-- Mobile: video fullscreen de fondo -->
   <div class="hero-video-mobile">
     <video autoplay muted loop playsinline preload="auto">
-      <source src="https://res.cloudinary.com/dvvuwigmy/video/upload/q_auto:best,vc_auto/v1780867850/insta_video_87032_axh9uf.mp4" type="video/mp4">
+      <source src="https://res.cloudinary.com/dvvuwigmy/video/upload/q_auto,f_auto/v1780867850/insta_video_87032_axh9uf.mp4" type="video/mp4">
     </video>
   </div>
   <div class="hero-grain"></div>
