@@ -344,7 +344,13 @@ nav.scrolled {
 .brand-cell:hover .brand-units { opacity:1; transform:translateY(0); }
 
 /* ─── INVENTARIO ─── */
-.inventario { padding:110px 0; background:var(--ink); }
+.inventario { padding:110px 0; background:var(--ink); position:relative; overflow:hidden; }
+.inventario::before {
+  content:''; position:absolute; inset:0; z-index:0;
+  background:url('https://res.cloudinary.com/dvvuwigmy/image/upload/v1780887765/IMG_7434_b24rvo.jpg') center/cover no-repeat;
+  opacity:.12; pointer-events:none;
+}
+.inventario .sec-inner, .inventario .filters, .inventario .cars-grid, .inventario > * { position:relative; z-index:1; }
 .filters {
   display:flex; gap:6px; margin-bottom:56px; flex-wrap:wrap;
   justify-content:center;
@@ -407,7 +413,14 @@ nav.scrolled {
 /* ─── FEATURED (Porsche editorial) ─── */
 .featured {
   display:grid; grid-template-columns:1fr 1fr; min-height:640px;
+  position:relative; overflow:hidden;
 }
+.featured::before {
+  content:''; position:absolute; inset:0; z-index:0;
+  background:url('https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882675/IMG_7343_azltyn.png') center/cover no-repeat;
+  opacity:.13; pointer-events:none;
+}
+.featured > * { position:relative; z-index:1; }
 .featured-visual {
   position:relative; background:var(--ink-3); overflow:hidden;
   display:flex; align-items:center; justify-content:center;
@@ -542,6 +555,12 @@ nav.scrolled {
 .club { padding:110px 0; background:var(--ink); position:relative; overflow:hidden; }
 .club::before {
   content:''; position:absolute; inset:0; z-index:0;
+  background:url('https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882664/IMG_7334_qftasg.png') center/cover no-repeat;
+  opacity:.13; pointer-events:none;
+}
+.club > * { position:relative; z-index:1; }
+.club::before {
+  content:''; position:absolute; inset:0; z-index:0;
   background:url('https://res.cloudinary.com/dvvuwigmy/image/upload/v1780886166/IMG_7433_zh51ky.jpg') center/cover no-repeat;
   opacity:.10; pointer-events:none;
 }
@@ -597,6 +616,12 @@ nav.scrolled {
 .ai-section { padding:100px 0; background:var(--ink-1); position:relative; overflow:hidden; }
 .ai-section::before {
   content:''; position:absolute; inset:0; z-index:0;
+  background:url('https://res.cloudinary.com/dvvuwigmy/image/upload/v1780887763/IMG_7433_zh51ky.jpg') center/cover no-repeat;
+  opacity:.14; pointer-events:none;
+}
+.ai-section > * { position:relative; z-index:1; }
+.ai-section::before {
+  content:''; position:absolute; inset:0; z-index:0;
   background:url('https://res.cloudinary.com/dvvuwigmy/image/upload/v1780886167/IMG_7434_b24rvo.jpg') center/cover no-repeat;
   opacity:.10; pointer-events:none;
 }
@@ -642,7 +667,7 @@ nav.scrolled {
 }
 .chat-inp {
   flex:1; background:var(--ink-4); border:1px solid rgba(255,255,255,0.06);
-  color:var(--white); font-family:var(--sans); font-size:14px; font-weight:300;
+  color:var(--white); font-family:var(--sans); font-size:16px; font-weight:300;
   padding:13px 18px; outline:none; transition:border-color .3s;
 }
 .chat-inp:focus { border-color:rgba(201,169,110,.3); }
@@ -696,8 +721,8 @@ footer { background:var(--ink-1); border-top:1px solid rgba(201,169,110,0.08); }
   display:flex; align-items:center; justify-content:center;
 }
 .car-slide img {
-  width:100%; height:100%; object-fit:cover; object-position:center center;
-  pointer-events:none; draggable: false;
+  width:100%; height:100%; object-fit:contain; object-position:center center;
+  pointer-events:none; background:var(--ink-3);
 }
 .slider-dots {
   position:absolute; bottom:10px; left:0; right:0;
@@ -723,6 +748,50 @@ footer { background:var(--ink-1); border-top:1px solid rgba(201,169,110,0.08); }
 .slider-arr svg { width:12px; height:12px; stroke:var(--gold); fill:none; stroke-width:2; }
 .slider-arr.prev { left:8px; }
 .slider-arr.next { right:8px; }
+
+/* ─── LIGHTBOX ─── */
+#lb {
+  display:none; position:fixed; inset:0; z-index:99990;
+  background:rgba(0,0,0,0.96); align-items:center; justify-content:center;
+  flex-direction:column;
+}
+#lb.open { display:flex; }
+#lb-img {
+  max-width:92vw; max-height:80vh; object-fit:contain;
+  display:block; border:1px solid rgba(201,169,110,0.15);
+}
+#lb-close {
+  position:fixed; top:20px; right:24px;
+  font-family:var(--mono); font-size:11px; letter-spacing:.18em;
+  color:var(--smoke); background:none; border:1px solid rgba(255,255,255,0.15);
+  padding:8px 16px; cursor:pointer; z-index:99999;
+  transition:color .2s, border-color .2s;
+}
+#lb-close:hover { color:var(--gold); border-color:var(--gold); }
+#lb-counter {
+  font-family:var(--mono); font-size:10px; letter-spacing:.18em;
+  color:var(--fog); margin-top:16px;
+}
+#lb-dots {
+  display:flex; gap:6px; margin-top:12px;
+}
+.lb-dot {
+  width:6px; height:6px; border-radius:50%;
+  background:rgba(255,255,255,0.2); border:none; cursor:pointer; padding:0;
+  transition:background .2s, transform .2s;
+}
+.lb-dot.active { background:var(--gold); transform:scale(1.3); }
+#lb-arr-prev, #lb-arr-next {
+  position:fixed; top:50%; transform:translateY(-50%);
+  width:44px; height:44px; background:rgba(6,6,6,0.7);
+  border:1px solid rgba(201,169,110,0.25); cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  z-index:99999; transition:border-color .2s;
+}
+#lb-arr-prev { left:16px; }
+#lb-arr-next { right:16px; }
+#lb-arr-prev:hover, #lb-arr-next:hover { border-color:var(--gold); }
+#lb-arr-prev svg, #lb-arr-next svg { width:16px; height:16px; stroke:var(--gold); fill:none; stroke-width:2; }
 
 /* ─── KEYFRAMES ─── */
 @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
@@ -836,7 +905,7 @@ footer { background:var(--ink-1); border-top:1px solid rgba(201,169,110,0.08); }
   .chat-msgs { min-height:220px; max-height:320px; padding:20px 16px; }
   .chat-header { padding:14px 16px; }
   .chat-foot { padding:12px 16px; }
-  .chat-inp { font-size:13px; }
+  .chat-inp { font-size:16px; }
 
   /* FOOTER */
   .footer-top { grid-template-columns:1fr 1fr; gap:36px; padding:56px 20px 40px; }
@@ -884,8 +953,8 @@ footer { background:var(--ink-1); border-top:1px solid rgba(201,169,110,0.08); }
 .nosotros { padding:100px 0; background:var(--ink-1); position:relative; overflow:hidden; }
 .nosotros::before {
   content:''; position:absolute; inset:0; z-index:0;
-  background:url('https://res.cloudinary.com/dvvuwigmy/image/upload/v1780886166/IMG_7435_zyays6.jpg') center/cover no-repeat;
-  opacity:.10; pointer-events:none;
+  background:url('https://res.cloudinary.com/dvvuwigmy/image/upload/v1780887767/IMG_7435_zyays6.jpg') center/cover no-repeat;
+  opacity:.18; pointer-events:none;
 }
 .nosotros-inner { position:relative; z-index:1; }
 .nosotros-inner {
@@ -1120,15 +1189,15 @@ footer { background:var(--ink-1); border-top:1px solid rgba(201,169,110,0.08); }
         <div class="car-img">
           <div class="car-slider" data-slider>
             <div class="car-slides">
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882637/IMG_7330_nng7lc.png" alt="Porsche 911 GT3 2026 - foto 1" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882627/IMG_7331_zx47gi.png" alt="Porsche 911 GT3 2026 - foto 2" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882632/IMG_7332_c9a6ns.png" alt="Porsche 911 GT3 2026 - foto 3" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882655/IMG_7333_jsgd09.png" alt="Porsche 911 GT3 2026 - foto 4" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882664/IMG_7334_qftasg.png" alt="Porsche 911 GT3 2026 - foto 5" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882645/IMG_7335_neasv3.png" alt="Porsche 911 GT3 2026 - foto 6" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882660/IMG_7336_vuvlp4.png" alt="Porsche 911 GT3 2026 - foto 7" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882640/IMG_7337_xkib6w.png" alt="Porsche 911 GT3 2026 - foto 8" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882650/IMG_7338_xlcmj3.png" alt="Porsche 911 GT3 2026 - foto 9" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882637/IMG_7330_nng7lc.png" alt="Porsche 911 GT3 2026 - foto 1" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882627/IMG_7331_zx47gi.png" alt="Porsche 911 GT3 2026 - foto 2" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882632/IMG_7332_c9a6ns.png" alt="Porsche 911 GT3 2026 - foto 3" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882655/IMG_7333_jsgd09.png" alt="Porsche 911 GT3 2026 - foto 4" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882664/IMG_7334_qftasg.png" alt="Porsche 911 GT3 2026 - foto 5" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882645/IMG_7335_neasv3.png" alt="Porsche 911 GT3 2026 - foto 6" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882660/IMG_7336_vuvlp4.png" alt="Porsche 911 GT3 2026 - foto 7" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882640/IMG_7337_xkib6w.png" alt="Porsche 911 GT3 2026 - foto 8" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882650/IMG_7338_xlcmj3.png" alt="Porsche 911 GT3 2026 - foto 9" loading="lazy"></div>
             </div>
             <button class="slider-arr prev" onclick="sliderMove(this,-1)"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
             <button class="slider-arr next" onclick="sliderMove(this,1)"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
@@ -1156,15 +1225,15 @@ footer { background:var(--ink-1); border-top:1px solid rgba(201,169,110,0.08); }
         <div class="car-img">
           <div class="car-slider" data-slider>
             <div class="car-slides">
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882668/IMG_7339_dmnteo.png" alt="Porsche 911 GT3 Weissach 2026 - foto 1" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882672/IMG_7340_jglcv0.png" alt="Porsche 911 GT3 Weissach 2026 - foto 2" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882687/IMG_7341_mxyncz.png" alt="Porsche 911 GT3 Weissach 2026 - foto 3" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882679/IMG_7342_awpp1r.png" alt="Porsche 911 GT3 Weissach 2026 - foto 4" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882675/IMG_7343_azltyn.png" alt="Porsche 911 GT3 Weissach 2026 - foto 5" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882690/IMG_7344_j3zgnv.png" alt="Porsche 911 GT3 Weissach 2026 - foto 6" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882682/IMG_7345_rfj133.png" alt="Porsche 911 GT3 Weissach 2026 - foto 7" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882694/IMG_7346_vrky4g.png" alt="Porsche 911 GT3 Weissach 2026 - foto 8" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882698/IMG_7347_fo7qod.png" alt="Porsche 911 GT3 Weissach 2026 - foto 9" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882668/IMG_7339_dmnteo.png" alt="Porsche 911 GT3 Weissach 2026 - foto 1" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882672/IMG_7340_jglcv0.png" alt="Porsche 911 GT3 Weissach 2026 - foto 2" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882687/IMG_7341_mxyncz.png" alt="Porsche 911 GT3 Weissach 2026 - foto 3" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882679/IMG_7342_awpp1r.png" alt="Porsche 911 GT3 Weissach 2026 - foto 4" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882675/IMG_7343_azltyn.png" alt="Porsche 911 GT3 Weissach 2026 - foto 5" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882690/IMG_7344_j3zgnv.png" alt="Porsche 911 GT3 Weissach 2026 - foto 6" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882682/IMG_7345_rfj133.png" alt="Porsche 911 GT3 Weissach 2026 - foto 7" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882694/IMG_7346_vrky4g.png" alt="Porsche 911 GT3 Weissach 2026 - foto 8" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882698/IMG_7347_fo7qod.png" alt="Porsche 911 GT3 Weissach 2026 - foto 9" loading="lazy"></div>
             </div>
             <button class="slider-arr prev" onclick="sliderMove(this,-1)"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
             <button class="slider-arr next" onclick="sliderMove(this,1)"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
@@ -1192,14 +1261,14 @@ footer { background:var(--ink-1); border-top:1px solid rgba(201,169,110,0.08); }
         <div class="car-img">
           <div class="car-slider" data-slider>
             <div class="car-slides">
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883159/IMG_7348_hks7vb.png" alt="Ford Mustang 1966 - foto 1" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883163/IMG_7349_ezck3x.png" alt="Ford Mustang 1966 - foto 2" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883171/IMG_7350_lnqtia.png" alt="Ford Mustang 1966 - foto 3" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883179/IMG_7351_txoftw.png" alt="Ford Mustang 1966 - foto 4" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883167/IMG_7352_xr3etm.png" alt="Ford Mustang 1966 - foto 5" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883183/IMG_7353_edqpbb.png" alt="Ford Mustang 1966 - foto 6" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883186/IMG_7357_ldbigb.png" alt="Ford Mustang 1966 - foto 7" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883189/IMG_7355_kt1eoi.png" alt="Ford Mustang 1966 - foto 8" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883159/IMG_7348_hks7vb.png" alt="Ford Mustang 1966 - foto 1" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883163/IMG_7349_ezck3x.png" alt="Ford Mustang 1966 - foto 2" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883171/IMG_7350_lnqtia.png" alt="Ford Mustang 1966 - foto 3" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883179/IMG_7351_txoftw.png" alt="Ford Mustang 1966 - foto 4" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883167/IMG_7352_xr3etm.png" alt="Ford Mustang 1966 - foto 5" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883183/IMG_7353_edqpbb.png" alt="Ford Mustang 1966 - foto 6" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883186/IMG_7357_ldbigb.png" alt="Ford Mustang 1966 - foto 7" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883189/IMG_7355_kt1eoi.png" alt="Ford Mustang 1966 - foto 8" loading="lazy"></div>
             </div>
             <button class="slider-arr prev" onclick="sliderMove(this,-1)"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
             <button class="slider-arr next" onclick="sliderMove(this,1)"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
@@ -1227,18 +1296,18 @@ footer { background:var(--ink-1); border-top:1px solid rgba(201,169,110,0.08); }
         <div class="car-img">
           <div class="car-slider" data-slider>
             <div class="car-slides">
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882716/IMG_7358_ajkkch.png" alt="Cayenne Turbo GT 2026 - 1" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882707/IMG_7359_l6f9gr.png" alt="Cayenne Turbo GT 2026 - 2" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882703/IMG_7360_d1xr1r.png" alt="Cayenne Turbo GT 2026 - 3" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882711/IMG_7361_qzs123.png" alt="Cayenne Turbo GT 2026 - 4" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882719/IMG_7362_zuyywv.png" alt="Cayenne Turbo GT 2026 - 5" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883202/IMG_7363_fhxtej.png" alt="Cayenne Turbo GT 2026 - 6" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883193/IMG_7364_hgv7bi.png" alt="Cayenne Turbo GT 2026 - 7" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883436/IMG_7365_oka3i1.png" alt="Cayenne Turbo GT 2026 - 8" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883432/IMG_7366_hy9t7m.png" alt="Cayenne Turbo GT 2026 - 9" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883428/IMG_7367_nbkdhy.png" alt="Cayenne Turbo GT 2026 - 10" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883197/IMG_7368_qr6dg4.png" alt="Cayenne Turbo GT 2026 - 11" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883205/IMG_7369_tljjou.png" alt="Cayenne Turbo GT 2026 - 12" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882716/IMG_7358_ajkkch.png" alt="Cayenne Turbo GT 2026 - 1" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882707/IMG_7359_l6f9gr.png" alt="Cayenne Turbo GT 2026 - 2" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882703/IMG_7360_d1xr1r.png" alt="Cayenne Turbo GT 2026 - 3" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882711/IMG_7361_qzs123.png" alt="Cayenne Turbo GT 2026 - 4" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882719/IMG_7362_zuyywv.png" alt="Cayenne Turbo GT 2026 - 5" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883202/IMG_7363_fhxtej.png" alt="Cayenne Turbo GT 2026 - 6" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883193/IMG_7364_hgv7bi.png" alt="Cayenne Turbo GT 2026 - 7" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883436/IMG_7365_oka3i1.png" alt="Cayenne Turbo GT 2026 - 8" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883432/IMG_7366_hy9t7m.png" alt="Cayenne Turbo GT 2026 - 9" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883428/IMG_7367_nbkdhy.png" alt="Cayenne Turbo GT 2026 - 10" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883197/IMG_7368_qr6dg4.png" alt="Cayenne Turbo GT 2026 - 11" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883205/IMG_7369_tljjou.png" alt="Cayenne Turbo GT 2026 - 12" loading="lazy"></div>
             </div>
             <button class="slider-arr prev" onclick="sliderMove(this,-1)"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
             <button class="slider-arr next" onclick="sliderMove(this,1)"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
@@ -1266,15 +1335,15 @@ footer { background:var(--ink-1); border-top:1px solid rgba(201,169,110,0.08); }
         <div class="car-img">
           <div class="car-slider" data-slider>
             <div class="car-slides">
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882723/IMG_7370_x8p5yh.png" alt="911 GT3 Touring 2026 - 1" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883211/IMG_7371_ssurlp.png" alt="911 GT3 Touring 2026 - 2" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882726/IMG_7372_llkovj.png" alt="911 GT3 Touring 2026 - 3" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883218/IMG_7373_pdil4y.png" alt="911 GT3 Touring 2026 - 4" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883222/IMG_7374_amtlpl.png" alt="911 GT3 Touring 2026 - 5" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883214/IMG_7375_qesmiw.png" alt="911 GT3 Touring 2026 - 6" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882730/IMG_7376_qc5oiw.png" alt="911 GT3 Touring 2026 - 7" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883226/IMG_7377_o8f0na.png" alt="911 GT3 Touring 2026 - 8" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882735/IMG_7378_xxswk6.png" alt="911 GT3 Touring 2026 - 9" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882723/IMG_7370_x8p5yh.png" alt="911 GT3 Touring 2026 - 1" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883211/IMG_7371_ssurlp.png" alt="911 GT3 Touring 2026 - 2" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882726/IMG_7372_llkovj.png" alt="911 GT3 Touring 2026 - 3" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883218/IMG_7373_pdil4y.png" alt="911 GT3 Touring 2026 - 4" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883222/IMG_7374_amtlpl.png" alt="911 GT3 Touring 2026 - 5" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883214/IMG_7375_qesmiw.png" alt="911 GT3 Touring 2026 - 6" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882730/IMG_7376_qc5oiw.png" alt="911 GT3 Touring 2026 - 7" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883226/IMG_7377_o8f0na.png" alt="911 GT3 Touring 2026 - 8" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882735/IMG_7378_xxswk6.png" alt="911 GT3 Touring 2026 - 9" loading="lazy"></div>
             </div>
             <button class="slider-arr prev" onclick="sliderMove(this,-1)"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
             <button class="slider-arr next" onclick="sliderMove(this,1)"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
@@ -1302,18 +1371,18 @@ footer { background:var(--ink-1); border-top:1px solid rgba(201,169,110,0.08); }
         <div class="car-img">
           <div class="car-slider" data-slider>
             <div class="car-slides">
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883664/IMG_7380_srhufe.png" alt="Audi R8 V10 2017 - 1" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883659/IMG_7379_xuwepi.png" alt="Audi R8 V10 2017 - 2" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883655/IMG_7381_kvwqko.png" alt="Audi R8 V10 2017 - 3" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883638/IMG_7383_eguszs.png" alt="Audi R8 V10 2017 - 4" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883651/IMG_7384_olidhz.png" alt="Audi R8 V10 2017 - 5" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883646/IMG_7385_kj0ngo.png" alt="Audi R8 V10 2017 - 6" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883634/IMG_7386_wyqzxz.png" alt="Audi R8 V10 2017 - 7" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883621/IMG_7387_sdv9ov.png" alt="Audi R8 V10 2017 - 8" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883625/IMG_7388_wzlsd9.png" alt="Audi R8 V10 2017 - 9" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883614/IMG_7389_mybgtz.png" alt="Audi R8 V10 2017 - 10" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883617/IMG_7390_onffe3.png" alt="Audi R8 V10 2017 - 11" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883630/IMG_7391_sf4y8h.png" alt="Audi R8 V10 2017 - 12" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883664/IMG_7380_srhufe.png" alt="Audi R8 V10 2017 - 1" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883659/IMG_7379_xuwepi.png" alt="Audi R8 V10 2017 - 2" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883655/IMG_7381_kvwqko.png" alt="Audi R8 V10 2017 - 3" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883638/IMG_7383_eguszs.png" alt="Audi R8 V10 2017 - 4" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883651/IMG_7384_olidhz.png" alt="Audi R8 V10 2017 - 5" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883646/IMG_7385_kj0ngo.png" alt="Audi R8 V10 2017 - 6" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883634/IMG_7386_wyqzxz.png" alt="Audi R8 V10 2017 - 7" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883621/IMG_7387_sdv9ov.png" alt="Audi R8 V10 2017 - 8" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883625/IMG_7388_wzlsd9.png" alt="Audi R8 V10 2017 - 9" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883614/IMG_7389_mybgtz.png" alt="Audi R8 V10 2017 - 10" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883617/IMG_7390_onffe3.png" alt="Audi R8 V10 2017 - 11" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883630/IMG_7391_sf4y8h.png" alt="Audi R8 V10 2017 - 12" loading="lazy"></div>
             </div>
             <button class="slider-arr prev" onclick="sliderMove(this,-1)"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
             <button class="slider-arr next" onclick="sliderMove(this,1)"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
@@ -1341,16 +1410,16 @@ footer { background:var(--ink-1); border-top:1px solid rgba(201,169,110,0.08); }
         <div class="car-img">
           <div class="car-slider" data-slider>
             <div class="car-slides">
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883854/IMG_7392_zvpd1j.png" alt="Porsche 911T 1970 RWB - 1" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883858/IMG_7393_m4cnns.png" alt="Porsche 911T 1970 RWB - 2" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883862/IMG_7394_vf3gtq.png" alt="Porsche 911T 1970 RWB - 3" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883866/IMG_7395_ftsia7.png" alt="Porsche 911T 1970 RWB - 4" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883901/IMG_7396_ph7dxi.png" alt="Porsche 911T 1970 RWB - 5" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883880/IMG_7397_v0qoub.png" alt="Porsche 911T 1970 RWB - 6" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883875/IMG_7398_gbzo2z.png" alt="Porsche 911T 1970 RWB - 7" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883896/IMG_7399_kjmzse.png" alt="Porsche 911T 1970 RWB - 8" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883909/IMG_7400_di6upt.png" alt="Porsche 911T 1970 RWB - 9" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883920/IMG_7401_m0pgkh.png" alt="Porsche 911T 1970 RWB - 10" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883854/IMG_7392_zvpd1j.png" alt="Porsche 911T 1970 RWB - 1" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883858/IMG_7393_m4cnns.png" alt="Porsche 911T 1970 RWB - 2" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883862/IMG_7394_vf3gtq.png" alt="Porsche 911T 1970 RWB - 3" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883866/IMG_7395_ftsia7.png" alt="Porsche 911T 1970 RWB - 4" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883901/IMG_7396_ph7dxi.png" alt="Porsche 911T 1970 RWB - 5" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883880/IMG_7397_v0qoub.png" alt="Porsche 911T 1970 RWB - 6" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883875/IMG_7398_gbzo2z.png" alt="Porsche 911T 1970 RWB - 7" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883896/IMG_7399_kjmzse.png" alt="Porsche 911T 1970 RWB - 8" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883909/IMG_7400_di6upt.png" alt="Porsche 911T 1970 RWB - 9" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883920/IMG_7401_m0pgkh.png" alt="Porsche 911T 1970 RWB - 10" loading="lazy"></div>
             </div>
             <button class="slider-arr prev" onclick="sliderMove(this,-1)"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
             <button class="slider-arr next" onclick="sliderMove(this,1)"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
@@ -1378,23 +1447,23 @@ footer { background:var(--ink-1); border-top:1px solid rgba(201,169,110,0.08); }
         <div class="car-img">
           <div class="car-slider" data-slider>
             <div class="car-slides">
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883924/IMG_7402_r0l79e.png" alt="Supra MK4 1993 - 1" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882794/IMG_7403_pwsxs2.png" alt="Supra MK4 1993 - 2" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883928/IMG_7404_gk5m9n.png" alt="Supra MK4 1993 - 3" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882798/IMG_7405_oj2lbs.png" alt="Supra MK4 1993 - 4" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883913/IMG_7406_ushnsy.png" alt="Supra MK4 1993 - 5" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883840/IMG_7407_qlrp71.png" alt="Supra MK4 1993 - 6" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883836/IMG_7408_f2t9j6.png" alt="Supra MK4 1993 - 7" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882751/IMG_7409_gkawlu.png" alt="Supra MK4 1993 - 8" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882747/IMG_7410_sumgnj.png" alt="Supra MK4 1993 - 9" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883851/IMG_7411_v1ekjr.png" alt="Supra MK4 1993 - 10" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883844/IMG_7412_ttgmld.png" alt="Supra MK4 1993 - 11" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883847/IMG_7413_nxdfkc.png" alt="Supra MK4 1993 - 12" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882739/IMG_7414_zzoel1.png" alt="Supra MK4 1993 - 13" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882759/IMG_7415_p2jcut.png" alt="Supra MK4 1993 - 14" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882743/IMG_7416_bchpxc.png" alt="Supra MK4 1993 - 15" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882763/IMG_7417_bo925c.png" alt="Supra MK4 1993 - 16" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882767/IMG_7418_otxbmo.png" alt="Supra MK4 1993 - 17" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883924/IMG_7402_r0l79e.png" alt="Supra MK4 1993 - 1" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882794/IMG_7403_pwsxs2.png" alt="Supra MK4 1993 - 2" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883928/IMG_7404_gk5m9n.png" alt="Supra MK4 1993 - 3" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882798/IMG_7405_oj2lbs.png" alt="Supra MK4 1993 - 4" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883913/IMG_7406_ushnsy.png" alt="Supra MK4 1993 - 5" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883840/IMG_7407_qlrp71.png" alt="Supra MK4 1993 - 6" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883836/IMG_7408_f2t9j6.png" alt="Supra MK4 1993 - 7" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882751/IMG_7409_gkawlu.png" alt="Supra MK4 1993 - 8" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882747/IMG_7410_sumgnj.png" alt="Supra MK4 1993 - 9" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883851/IMG_7411_v1ekjr.png" alt="Supra MK4 1993 - 10" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883844/IMG_7412_ttgmld.png" alt="Supra MK4 1993 - 11" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883847/IMG_7413_nxdfkc.png" alt="Supra MK4 1993 - 12" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882739/IMG_7414_zzoel1.png" alt="Supra MK4 1993 - 13" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882759/IMG_7415_p2jcut.png" alt="Supra MK4 1993 - 14" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882743/IMG_7416_bchpxc.png" alt="Supra MK4 1993 - 15" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882763/IMG_7417_bo925c.png" alt="Supra MK4 1993 - 16" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882767/IMG_7418_otxbmo.png" alt="Supra MK4 1993 - 17" loading="lazy"></div>
             </div>
             <button class="slider-arr prev" onclick="sliderMove(this,-1)"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
             <button class="slider-arr next" onclick="sliderMove(this,1)"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
@@ -1422,19 +1491,19 @@ footer { background:var(--ink-1); border-top:1px solid rgba(201,169,110,0.08); }
         <div class="car-img">
           <div class="car-slider" data-slider>
             <div class="car-slides">
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882755/IMG_7419_fgshpl.png" alt="Charger Hellcat 2023 - 1" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882776/IMG_7420_ggamj9.png" alt="Charger Hellcat 2023 - 2" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882771/IMG_7421_a20rci.png" alt="Charger Hellcat 2023 - 3" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882780/IMG_7422_fydme0.png" alt="Charger Hellcat 2023 - 4" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882787/IMG_7423_wtjod6.png" alt="Charger Hellcat 2023 - 5" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883892/IMG_7424_p8ebok.png" alt="Charger Hellcat 2023 - 6" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883904/IMG_7425_yi3afx.png" alt="Charger Hellcat 2023 - 7" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883870/IMG_7426_xuudyt.png" alt="Charger Hellcat 2023 - 8" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882790/IMG_7427_b1eiem.png" alt="Charger Hellcat 2023 - 9" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883888/IMG_7428_w0ix5p.png" alt="Charger Hellcat 2023 - 10" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882784/IMG_7429_orjdw6.png" alt="Charger Hellcat 2023 - 11" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883885/IMG_7430_aa1eya.png" alt="Charger Hellcat 2023 - 12" loading="lazy"></div>
-              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883917/IMG_7431_bskjje.png" alt="Charger Hellcat 2023 - 13" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882755/IMG_7419_fgshpl.png" alt="Charger Hellcat 2023 - 1" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882776/IMG_7420_ggamj9.png" alt="Charger Hellcat 2023 - 2" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882771/IMG_7421_a20rci.png" alt="Charger Hellcat 2023 - 3" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882780/IMG_7422_fydme0.png" alt="Charger Hellcat 2023 - 4" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882787/IMG_7423_wtjod6.png" alt="Charger Hellcat 2023 - 5" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883892/IMG_7424_p8ebok.png" alt="Charger Hellcat 2023 - 6" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883904/IMG_7425_yi3afx.png" alt="Charger Hellcat 2023 - 7" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883870/IMG_7426_xuudyt.png" alt="Charger Hellcat 2023 - 8" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882790/IMG_7427_b1eiem.png" alt="Charger Hellcat 2023 - 9" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883888/IMG_7428_w0ix5p.png" alt="Charger Hellcat 2023 - 10" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882784/IMG_7429_orjdw6.png" alt="Charger Hellcat 2023 - 11" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883885/IMG_7430_aa1eya.png" alt="Charger Hellcat 2023 - 12" loading="lazy"></div>
+              <div class="car-slide"><img onclick="lbOpen(this)" style="cursor:zoom-in;" src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883917/IMG_7431_bskjje.png" alt="Charger Hellcat 2023 - 13" loading="lazy"></div>
             </div>
             <button class="slider-arr prev" onclick="sliderMove(this,-1)"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
             <button class="slider-arr next" onclick="sliderMove(this,1)"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
@@ -1823,8 +1892,8 @@ function joinClub(btn) {
   btn.style.background='#22c55e';
 }
 
-/* ─── AI CHAT (Claude API) ─── */
-const SYSTEM_PROMPT = `Eres el concierge virtual de JART LUXE, una boutique automotriz de lujo en Nuevo León, México. Representas la más alta sofisticación y discreción.
+/* ─── AI CHAT — JART CONCIERGE ─── */
+const SYSTEM_PROMPT = `Eres el Concierge Virtual de JART LUXE, boutique automotriz de lujo en Nuevo León, México. Tu rol es calificar al cliente con elegancia y derivarlo a un especialista humano vía WhatsApp en el menor tiempo posible.
 
 INVENTARIO ACTUAL:
 - Porsche 911 GT3 2026 | 510HP | 0 km | Precio a consultar (nuevo)
@@ -1837,11 +1906,35 @@ INVENTARIO ACTUAL:
 - Ford Mustang Hard Top 1966 | V8 | Clásico | Precio a consultar
 - Toyota Supra MK4 2JZ-GE 1993 | 165,000 km | Precio a consultar (JDM ícono)
 
-SERVICIOS: Consignación, financiamiento (20% enganche, 12-60 meses), Club JART (acceso anticipado), envíos nacionales, valuaciones sin costo.
+SERVICIOS: Consignación, financiamiento (20% enganche, 12-60 meses), Club JART, envíos nacionales, valuaciones sin costo.
 
-INSTRUCCIONES: Responde siempre en español, con tono refinado y conciso (máximo 3 párrafos). Si el cliente muestra interés, sugiere amablemente contactar por WhatsApp: +52 81 1234 5678. Nunca inventes modelos o precios que no están en el inventario.`;
+FLUJO:
+1. Saluda con elegancia y brevedad.
+2. Identifica si el cliente desea COMPRAR o VENDER/CONSIGNAR.
+3. Recoge máximo 3-4 datos clave: nombre, vehículo de interés (o a consignar), presupuesto aproximado, condición preferida (nuevo/seminuevo).
+4. Una vez que tengas suficiente información (no es necesario tener todos los datos), deriva al especialista.
+5. NUNCA hagas más de 2 preguntas seguidas. NUNCA alargues la conversación innecesariamente.
+
+RESPUESTA ESTRUCTURADA — Siempre responde ÚNICAMENTE con este JSON, sin texto adicional, sin markdown:
+{
+  "mensaje": "tu respuesta al cliente aquí, tono refinado, máximo 3 oraciones",
+  "derivar": false,
+  "lead": {
+    "nombre": "",
+    "interes": "",
+    "marca": "",
+    "modelo": "",
+    "presupuesto": "",
+    "condicion": "",
+    "preferencias": "",
+    "resumen": ""
+  }
+}
+
+Cuando tengas suficiente info para derivar, pon "derivar": true y completa todos los campos del lead que puedas. El resumen debe ser profesional y útil para el asesor: máximo 2 oraciones con intención de compra, urgencia y cualquier detalle relevante.`;
 
 const chatHistory = [];
+let leadData = {};
 
 async function sendMsg() {
   const inp = document.getElementById('chatInp');
@@ -1855,20 +1948,85 @@ async function sendMsg() {
     const res = await fetch('/api/chat', {
       method:'POST',
       headers:{ 'Content-Type':'application/json' },
-      body: JSON.stringify({
-        system: SYSTEM_PROMPT,
-        messages: chatHistory
-      })
+      body: JSON.stringify({ system: SYSTEM_PROMPT, messages: chatHistory })
     });
     const data = await res.json();
     removeTyping();
-    const reply = data.reply || 'Disculpa, hubo un inconveniente. Por favor contáctanos en WhatsApp.';
-    chatHistory.push({ role:'assistant', content:reply });
+    const raw = data.reply || '{"mensaje":"Disculpa, hubo un inconveniente. Por favor contáctanos directamente.","derivar":false,"lead":{}}';
+
+    let parsed;
+    try {
+      const clean = raw.replace(/```json|```/g, '').trim();
+      parsed = JSON.parse(clean);
+    } catch(e) {
+      parsed = { mensaje: raw, derivar: false, lead: {} };
+    }
+
+    const reply = parsed.mensaje || 'Un momento, por favor.';
+    chatHistory.push({ role:'assistant', content: JSON.stringify(parsed) });
     addMsg(reply, 'bot');
+
+    // Merge lead data
+    if (parsed.lead) {
+      Object.keys(parsed.lead).forEach(k => {
+        if (parsed.lead[k] && parsed.lead[k].trim && parsed.lead[k].trim()) leadData[k] = parsed.lead[k];
+      });
+    }
+
+    // Show WA button if derivar = true
+    if (parsed.derivar) {
+      setTimeout(() => showWAButton(), 400);
+    }
+
   } catch(err) {
     removeTyping();
-    addMsg('En este momento no puedo procesar tu consulta. Por favor escríbenos directamente a +52 81 1234 5678.', 'bot');
+    addMsg('En este momento no puedo procesar tu consulta. Por favor escríbenos directamente.', 'bot');
   }
+}
+
+function showWAButton() {
+  const c = document.getElementById('chatMsgs');
+  if (document.getElementById('wa-lead-btn')) return;
+  const d = document.createElement('div');
+  d.className = 'msg bot';
+  d.id = 'wa-lead-btn';
+  d.innerHTML = \`
+    <div class="msg-bubble" style="padding:0;background:none;border:none;box-shadow:none;">
+      <button onclick="openWALead()" style="
+        display:flex;align-items:center;gap:12px;
+        background:linear-gradient(135deg,#25D366,#128C7E);
+        border:none;padding:14px 22px;cursor:pointer;width:100%;
+        font-family:var(--mono);font-size:10px;letter-spacing:.18em;
+        color:#fff;text-transform:uppercase;transition:opacity .2s;
+      " onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.533 5.856L.057 23.882l6.19-1.453A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.374l-.36-.214-3.722.873.936-3.623-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
+        Hablar con un Especialista
+      </button>
+    </div>
+  \`;
+  c.appendChild(d);
+  c.scrollTop = c.scrollHeight;
+}
+
+function openWALead() {
+  const l = leadData;
+  const msg = encodeURIComponent(
+\`🏁 NUEVO LEAD JART LUXE
+
+Nombre: \${l.nombre || 'No proporcionado'}
+Interés: \${l.interes || 'No especificado'}
+Marca: \${l.marca || 'No especificada'}
+Modelo: \${l.modelo || 'No especificado'}
+Presupuesto: \${l.presupuesto || 'No especificado'}
+Condición: \${l.condicion || 'No especificada'}
+Preferencias: \${l.preferencias || 'Sin preferencias adicionales'}
+
+Resumen Concierge IA:
+\${l.resumen || 'Cliente calificado por el Concierge Virtual.'}
+
+Lead generado desde JARTLUXE.COM\`
+  );
+  window.open(\`https://wa.me/528112345678?text=\${msg}\`, '_blank');
 }
 
 function addMsg(text, type) {
@@ -1876,7 +2034,7 @@ function addMsg(text, type) {
   const d = document.createElement('div');
   d.className = 'msg ' + type;
   const t = new Date().toLocaleTimeString('es',{hour:'2-digit',minute:'2-digit'});
-  d.innerHTML = `<div class="msg-bubble">${text}</div><div class="msg-time">${t}</div>`;
+  d.innerHTML = \`<div class="msg-bubble">\${text}</div><div class="msg-time">\${t}</div>\`;
   c.appendChild(d);
   c.scrollTop = c.scrollHeight;
 }
@@ -1946,8 +2104,94 @@ function sliderMove(btn, dir) {
 }
 
 // Init on load and after any dynamic changes
-document.addEventListener('DOMContentLoaded', initSliders);
+document.addEventListener('DOMContentLoaded', () => {
+  initSliders();
+  // Force hero videos to play immediately
+  document.querySelectorAll('.hero-bg video, .hero-video-wrap video, .hero-video-mobile video').forEach(v => {
+    v.muted = true;
+    v.playsInline = true;
+    const p = v.play();
+    if (p !== undefined) p.catch(() => {});
+  });
+});
 setTimeout(initSliders, 200);
+
+/* ─── LIGHTBOX ─── */
+let _lbImgs = [], _lbIdx = 0;
+
+function lbOpen(imgEl) {
+  const slide = imgEl.closest('.car-slide');
+  const slider = imgEl.closest('[data-slider]');
+  const allImgs = [...slider.querySelectorAll('.car-slide img')];
+  _lbImgs = allImgs.map(i => i.src);
+  _lbIdx = allImgs.indexOf(imgEl);
+  lbRender();
+  document.getElementById('lb').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function lbClose() {
+  document.getElementById('lb').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function lbMove(dir) {
+  _lbIdx = (_lbIdx + dir + _lbImgs.length) % _lbImgs.length;
+  lbRender();
+}
+
+function lbRender() {
+  document.getElementById('lb-img').src = _lbImgs[_lbIdx];
+  document.getElementById('lb-counter').textContent = (_lbIdx + 1) + ' / ' + _lbImgs.length;
+  const dotsEl = document.getElementById('lb-dots');
+  dotsEl.innerHTML = '';
+  _lbImgs.forEach((_, i) => {
+    const d = document.createElement('button');
+    d.className = 'lb-dot' + (i === _lbIdx ? ' active' : '');
+    d.onclick = () => { _lbIdx = i; lbRender(); };
+    dotsEl.appendChild(d);
+  });
+}
+
+// Close on backdrop click
+const _lb = document.getElementById('lb');
+if (_lb) {
+  _lb.addEventListener('click', function(e) {
+    if (e.target === this) lbClose();
+  });
+}
+
+// Keyboard nav
+document.addEventListener('keydown', e => {
+  const lb = document.getElementById('lb');
+  if (!lb || !lb.classList.contains('open')) return;
+  if (e.key === 'ArrowRight') lbMove(1);
+  if (e.key === 'ArrowLeft') lbMove(-1);
+  if (e.key === 'Escape') lbClose();
+});
+
+// Touch swipe in lightbox
+let _lbTouchX = 0;
+const _lbImg = document.getElementById('lb-img');
+if (_lbImg) {
+  _lbImg.addEventListener('touchstart', e => { _lbTouchX = e.touches[0].clientX; }, { passive:true });
+  _lbImg.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - _lbTouchX;
+    if (Math.abs(dx) > 40) lbMove(dx < 0 ? 1 : -1);
+  });
+}
+
 </script>
+
+<!-- LIGHTBOX -->
+<div id="lb">
+  <button id="lb-close" onclick="lbClose()">✕ &nbsp;CERRAR</button>
+  <button id="lb-arr-prev" onclick="lbMove(-1)"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+  <img id="lb-img" src="" alt="">
+  <button id="lb-arr-next" onclick="lbMove(1)"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+  <div id="lb-counter"></div>
+  <div id="lb-dots"></div>
+</div>
+
 </body>
 </html>
