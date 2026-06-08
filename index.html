@@ -1,0 +1,1948 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JART LUXE — Vehículos Extraordinarios · Nuevo León</title>
+<meta name="description" content="La boutique digital de automóviles premium de Nuevo León. Porsche, Mercedes-Benz, BMW, Audi. Compra, venta y consignación de vehículos de lujo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,300;0,6..96,400;0,6..96,500;1,6..96,300;1,6..96,400&family=DM+Mono:wght@300;400&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --ink: #060606;
+  --ink-1: #0c0c0c;
+  --ink-2: #111;
+  --ink-3: #181818;
+  --ink-4: #222;
+  --ash: #333;
+  --fog: #555;
+  --mist: #888;
+  --haze: #aaa;
+  --smoke: #ccc;
+  --parchment: #f5f3ef;
+  --white: #fff;
+  --gold: #c9a96e;
+  --gold-2: #b8924c;
+  --gold-dim: rgba(201,169,110,0.15);
+  --gold-ghost: rgba(201,169,110,0.06);
+  --gold-glow: rgba(201,169,110,0.3);
+  --serif: 'Bodoni Moda', Georgia, serif;
+  --mono: 'DM Mono', monospace;
+  --sans: 'Outfit', system-ui, sans-serif;
+  --silk: cubic-bezier(0.16, 1, 0.3, 1);
+  --glide: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  background: var(--ink);
+  color: var(--parchment);
+  font-family: var(--sans);
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ─── CUSTOM CURSOR ─── */
+#cur { position:fixed; width:6px; height:6px; background:var(--gold); border-radius:50%; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); mix-blend-mode:difference; }
+#cur-ring { position:fixed; width:32px; height:32px; border:1px solid rgba(201,169,110,0.5); border-radius:50%; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:transform .25s var(--silk),width .3s,height .3s,border-color .3s,opacity .3s; }
+
+/* ─── LOADING ─── */
+#loader {
+  position:fixed; inset:0; z-index:99999;
+  background:var(--ink);
+  display:flex; align-items:center; justify-content:center; flex-direction:column; gap:32px;
+  transition:opacity .8s var(--silk), visibility .8s;
+}
+#loader.out { opacity:0; visibility:hidden; pointer-events:none; }
+.loader-logo {
+  font-family:var(--serif); font-size:44px; font-weight:300; letter-spacing:.18em;
+  color:var(--white);
+}
+.loader-logo span { color:var(--gold); }
+.loader-bar-wrap { width:160px; height:1px; background:rgba(255,255,255,0.1); overflow:hidden; }
+.loader-bar { height:100%; background:var(--gold); width:0; animation:loadBar 1.6s var(--silk) forwards; }
+@keyframes loadBar { to { width:100%; } }
+.loader-label { font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--mist); }
+
+/* ─── NAV ─── */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:1000;
+  padding:0 72px; height:76px;
+  display:flex; align-items:center; justify-content:space-between;
+  transition:background .6s var(--glide), border-color .6s;
+  border-bottom:1px solid transparent;
+}
+nav.scrolled {
+  background:rgba(6,6,6,0.9);
+  backdrop-filter:blur(28px) saturate(150%);
+  border-bottom-color:rgba(201,169,110,0.08);
+}
+.nav-logo {
+  text-decoration:none;
+  display:flex; align-items:center;
+}
+.nav-logo img {
+  height:44px; width:auto;
+
+  object-fit:contain;
+}
+.nav-links { display:flex; gap:44px; list-style:none; }
+.nav-links a {
+  font-family:var(--mono); font-size:10px; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--mist); text-decoration:none;
+  transition:color .3s; position:relative; padding-bottom:3px;
+}
+.nav-links a::after {
+  content:''; position:absolute; bottom:0; left:0; width:0; height:1px;
+  background:var(--gold); transition:width .4s var(--silk);
+}
+.nav-links a:hover { color:var(--white); }
+.nav-links a:hover::after { width:100%; }
+.nav-wa {
+  font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--gold); text-decoration:none;
+  border:1px solid rgba(201,169,110,0.35); padding:11px 26px;
+  transition:all .3s var(--silk); display:flex; align-items:center; gap:8px;
+}
+.nav-wa svg { width:14px; height:14px; stroke:var(--gold); fill:none; transition:stroke .3s; }
+.nav-wa:hover { background:var(--gold); color:var(--ink); border-color:var(--gold); }
+.nav-wa:hover svg { stroke:var(--ink); }
+
+/* ─── HERO ─── */
+.hero {
+  position:relative; height:78vh; min-height:560px;
+  display:flex; align-items:flex-end; overflow:hidden;
+}
+
+
+/* ── DESKTOP: video de fondo ── */
+.hero-bg {
+  position:absolute; inset:0; z-index:0; overflow:hidden;
+}
+.hero-bg video {
+  width:100%; height:100%; object-fit:cover; object-position:center;
+}
+.hero-bg::after {
+  content:''; position:absolute; inset:0;
+  background:rgba(6,6,6,0.52);
+}
+
+/* ── DESKTOP: video panel derecho ── */
+.hero-video-wrap {
+  display:none;
+}
+.hero-video-wrap video {
+  width:100%; height:100%; object-fit:cover; object-position:center;
+  filter:brightness(0.92) saturate(1.05) contrast(1.02);
+}
+
+/* ── MOBILE: video fullscreen (reemplazado por hero-bg universal) ── */
+.hero-video-mobile {
+  display:none;
+  position:absolute; inset:0; z-index:1; overflow:hidden;
+}
+.hero-video-mobile video {
+  width:100%; height:100%; object-fit:cover; object-position:center;
+  filter:brightness(0.45) saturate(1.05);
+}
+.hero-video-mobile::after {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(6,6,6,0.95) 0%, rgba(6,6,6,.4) 50%, transparent 100%);
+}
+
+/* Grain overlay */
+.hero-grain {
+  position:absolute; inset:0; z-index:3; pointer-events:none;
+  opacity:.03;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:200px 200px;
+}
+/* Geometric accent lines */
+.hero-lines {
+  position:absolute; inset:0; z-index:3; pointer-events:none; overflow:hidden;
+}
+.hero-lines svg { position:absolute; right:-2%; top:0; height:100%; width:auto; opacity:.05; }
+/* Gradient veil — solo lado izquierdo en desktop */
+.hero-veil {
+  position:absolute; inset:0; z-index:4;
+  background:
+    linear-gradient(to top, rgba(6,6,6,0.94) 0%, rgba(6,6,6,.3) 30%, transparent 60%),
+    linear-gradient(to right, rgba(6,6,6,.5) 0%, rgba(6,6,6,.1) 45%, transparent 60%);
+}
+.hero-content {
+  position:relative; z-index:10; padding:0 72px 64px; max-width:600px;
+}
+.hero-chip {
+  display:inline-flex; align-items:center; gap:12px;
+  margin-bottom:32px;
+  opacity:0; animation:fadeUp 1s var(--silk) .3s forwards;
+}
+.hero-chip-line { width:48px; height:1px; background:var(--gold); }
+.hero-chip-text { font-family:var(--mono); font-size:10px; letter-spacing:.28em; text-transform:uppercase; color:var(--gold); }
+.hero-headline {
+  font-family:var(--serif); font-size:clamp(40px, 5.5vw, 72px); font-weight:300;
+  line-height:.95; color:var(--white); margin-bottom:8px;
+  opacity:0; animation:fadeUp 1.1s var(--silk) .5s forwards;
+}
+.hero-headline-2 {
+  font-family:var(--serif); font-size:clamp(40px, 5.5vw, 72px); font-weight:300;
+  line-height:.95; color:var(--gold); font-style:italic;
+  margin-bottom:28px;
+  opacity:0; animation:fadeUp 1.1s var(--silk) .65s forwards;
+}
+.hero-sub {
+  font-family:var(--sans); font-size:15px; font-weight:300; line-height:1.8;
+  color:var(--haze); max-width:420px; margin-bottom:52px;
+  opacity:0; animation:fadeUp 1s var(--silk) .8s forwards;
+}
+.hero-actions {
+  display:flex; gap:16px; flex-wrap:wrap;
+  opacity:0; animation:fadeUp 1s var(--silk) 1s forwards;
+}
+.btn-gold {
+  font-family:var(--mono); font-size:10px; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--ink); background:var(--gold); border:none;
+  padding:18px 42px; text-decoration:none; cursor:none;
+  transition:all .35s var(--silk); display:inline-block; position:relative; overflow:hidden;
+}
+.btn-gold::before {
+  content:''; position:absolute; inset:0; background:var(--white);
+  transform:translateX(-101%); transition:transform .4s var(--silk);
+}
+.btn-gold:hover::before { transform:translateX(0); }
+.btn-gold span { position:relative; z-index:1; }
+.btn-ghost {
+  font-family:var(--mono); font-size:10px; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--smoke); background:transparent; border:1px solid rgba(255,255,255,0.2);
+  padding:18px 42px; text-decoration:none; cursor:none;
+  transition:all .35s var(--silk); display:inline-block;
+}
+.btn-ghost:hover { border-color:var(--gold); color:var(--gold); }
+/* Scroll cue */
+.hero-scroll-cue {
+  position:absolute; right:72px; bottom:28px; z-index:10;
+  display:flex; flex-direction:column; align-items:center; gap:12px;
+  opacity:0; animation:fadeIn 1s var(--silk) 1.8s forwards;
+}
+.hero-scroll-cue span {
+  font-family:var(--mono); font-size:9px; letter-spacing:.25em; text-transform:uppercase;
+  color:var(--fog); writing-mode:vertical-rl;
+}
+.scroll-pulse { width:1px; height:72px; background:linear-gradient(to bottom, var(--gold), transparent); animation:scrollPulse 2.5s ease-in-out infinite; }
+/* Year watermark */
+.hero-year {
+  position:absolute; left:72px; bottom:28px; z-index:10;
+  font-family:var(--serif); font-size:144px; font-weight:300;
+  color:transparent; -webkit-text-stroke:1px rgba(201,169,110,0.07);
+  line-height:1; pointer-events:none; user-select:none;
+  opacity:0; animation:fadeIn 1.5s var(--silk) 1.2s forwards;
+}
+
+/* ─── MARQUEE ─── */
+.marquee-wrap {
+  background:var(--ink-2); border-top:1px solid rgba(201,169,110,0.08); border-bottom:1px solid rgba(201,169,110,0.08);
+  padding:16px 0; overflow:hidden;
+}
+.marquee-track {
+  display:flex; gap:0; white-space:nowrap;
+  animation:marqueeScroll 30s linear infinite;
+}
+.marquee-item {
+  display:inline-flex; align-items:center; gap:32px; padding:0 40px;
+  font-family:var(--mono); font-size:10px; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--fog); flex-shrink:0;
+}
+.marquee-item .dot { width:3px; height:3px; border-radius:50%; background:var(--gold); }
+@keyframes marqueeScroll { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+
+/* ─── STATS ─── */
+.stats {
+  background:var(--ink-1);
+  display:grid; grid-template-columns:repeat(4,1fr);
+  border-bottom:1px solid rgba(201,169,110,0.07);
+}
+.stat {
+  padding:40px 32px; text-align:center; position:relative;
+  border-right:1px solid rgba(201,169,110,0.07);
+  transition:background .4s var(--silk);
+}
+.stat:last-child { border-right:none; }
+.stat:hover { background:rgba(201,169,110,0.03); }
+.stat-num {
+  font-family:var(--serif); font-size:52px; font-weight:300;
+  color:var(--gold); display:block; line-height:1; margin-bottom:10px;
+}
+.stat-lbl { font-family:var(--mono); font-size:9px; letter-spacing:.22em; text-transform:uppercase; color:var(--fog); }
+
+/* ─── SECTION COMMONS ─── */
+.sec { position:relative; }
+.sec-inner { max-width:1400px; margin:0 auto; padding:0 72px; }
+.sec-head { margin-bottom:72px; }
+.sec-head.center { text-align:center; }
+.eyebrow {
+  font-family:var(--mono); font-size:10px; letter-spacing:.28em; text-transform:uppercase;
+  color:var(--gold); display:inline-flex; align-items:center; gap:14px; margin-bottom:22px;
+}
+.eyebrow::before { content:''; width:32px; height:1px; background:rgba(201,169,110,0.5); }
+.sec-title {
+  font-family:var(--serif); font-size:clamp(38px, 4.5vw, 64px); font-weight:300;
+  line-height:1.05; color:var(--white);
+}
+.sec-title em { font-style:italic; color:var(--gold); }
+.sec-sub {
+  margin-top:18px; font-size:15px; font-weight:300; line-height:1.8;
+  color:var(--haze); max-width:520px;
+}
+.sec-head.center .sec-sub { margin:18px auto 0; }
+.divider { height:1px; background:rgba(201,169,110,0.07); }
+
+/* REVEAL ANIMATIONS */
+.reveal { opacity:0; transform:translateY(28px); transition:opacity .9s var(--silk), transform .9s var(--silk); }
+.reveal.in { opacity:1; transform:translateY(0); }
+.reveal-r { opacity:0; transform:translateX(28px); transition:opacity .9s var(--silk), transform .9s var(--silk); }
+.reveal-r.in { opacity:1; transform:translateX(0); }
+.reveal-l { opacity:0; transform:translateX(-28px); transition:opacity .9s var(--silk), transform .9s var(--silk); }
+.reveal-l.in { opacity:1; transform:translateX(0); }
+
+/* ─── BRANDS ─── */
+.brands { padding:100px 0; background:var(--ink-2); }
+.brands-rail {
+  display:grid; grid-template-columns:repeat(4,1fr);
+  margin-top:64px; border:1px solid rgba(201,169,110,0.07);
+  background:rgba(201,169,110,0.035);
+  gap:1px;
+}
+.brand-cell {
+  background:var(--ink-2); padding:56px 24px;
+  display:flex; flex-direction:column; align-items:center; gap:14px;
+  cursor:none; transition:background .4s var(--silk); position:relative; overflow:hidden;
+}
+.brand-cell::after {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:1px;
+  background:var(--gold); transform:scaleX(0); transform-origin:left;
+  transition:transform .5s var(--silk);
+}
+.brand-cell:hover { background:var(--ink-3); }
+.brand-cell:hover::after { transform:scaleX(1); }
+.brand-name {
+  font-family:var(--serif); font-size:38px; font-weight:300; color:var(--white);
+  line-height:1; transition:color .3s; letter-spacing:-.01em;
+}
+.brand-cell:hover .brand-name { color:var(--gold); }
+.brand-sub { font-family:var(--mono); font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:var(--fog); }
+.brand-units {
+  font-family:var(--serif); font-size:13px; font-style:italic; color:var(--gold);
+  opacity:0; transform:translateY(5px); transition:all .3s var(--silk);
+}
+.brand-cell:hover .brand-units { opacity:1; transform:translateY(0); }
+
+/* ─── INVENTARIO ─── */
+.inventario { padding:110px 0; background:var(--ink); }
+.filters {
+  display:flex; gap:6px; margin-bottom:56px; flex-wrap:wrap;
+  justify-content:center;
+}
+.filter-btn {
+  font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--mist); background:transparent;
+  border:1px solid rgba(255,255,255,0.08); padding:11px 24px;
+  cursor:none; transition:all .3s var(--silk);
+}
+.filter-btn.active, .filter-btn:hover {
+  color:var(--gold); border-color:rgba(201,169,110,0.35); background:var(--gold-ghost);
+}
+.cars-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:2px;
+}
+.car-card {
+  background:var(--ink-2); position:relative; overflow:hidden; cursor:none;
+  transition:transform .4s var(--silk);
+}
+.car-card:hover { z-index:2; }
+.car-img {
+  height:230px; overflow:hidden; position:relative;
+  display:flex; align-items:center; justify-content:center;
+}
+.car-img-inner {
+  width:100%; height:100%; transition:transform .8s var(--silk);
+  display:flex; align-items:center; justify-content:center;
+  background:var(--ink-3);
+}
+.car-card:hover .car-img-inner { transform:scale(1.05); }
+.car-badge {
+  position:absolute; top:14px; left:14px; z-index:2;
+  font-family:var(--mono); font-size:9px; letter-spacing:.18em; text-transform:uppercase;
+  background:var(--gold); color:var(--ink); padding:5px 12px;
+}
+.car-badge.nuevo { background:var(--gold); }
+.car-badge.exclusivo { background:var(--white); color:var(--ink); }
+.car-body { padding:26px 28px 30px; }
+.car-brand { font-family:var(--mono); font-size:9px; letter-spacing:.22em; text-transform:uppercase; color:var(--gold); margin-bottom:7px; }
+.car-name { font-family:var(--serif); font-size:26px; font-weight:300; color:var(--white); line-height:1.15; margin-bottom:18px; }
+.car-specs { display:flex; gap:24px; margin-bottom:22px; }
+.car-spec { display:flex; flex-direction:column; gap:3px; }
+.spec-v { font-family:var(--sans); font-size:13px; font-weight:400; color:var(--smoke); }
+.spec-k { font-family:var(--mono); font-size:9px; letter-spacing:.12em; color:var(--fog); }
+.car-foot {
+  display:flex; align-items:center; justify-content:space-between;
+  padding-top:18px; border-top:1px solid rgba(255,255,255,0.05);
+}
+.car-price { font-family:var(--serif); font-size:24px; font-weight:300; color:var(--white); }
+.car-price small { font-family:var(--mono); font-size:9px; color:var(--fog); letter-spacing:.1em; margin-right:4px; }
+.btn-ver {
+  font-family:var(--mono); font-size:9px; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--gold); border:1px solid rgba(201,169,110,0.3); padding:10px 18px;
+  background:transparent; cursor:none; text-decoration:none;
+  transition:all .3s var(--silk); display:inline-block;
+}
+.btn-ver:hover { background:var(--gold); color:var(--ink); border-color:var(--gold); }
+
+/* ─── FEATURED (Porsche editorial) ─── */
+.featured {
+  display:grid; grid-template-columns:1fr 1fr; min-height:640px;
+}
+.featured-visual {
+  position:relative; background:var(--ink-3); overflow:hidden;
+  display:flex; align-items:center; justify-content:center;
+}
+.featured-visual-bg {
+  position:absolute; inset:0;
+  background:url('https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882679/IMG_7342_awpp1r.png') center/cover no-repeat;
+  opacity:.35;
+}
+.featured-visual-bg::after {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(ellipse 70% 70% at 50% 50%, rgba(25,18,5,0.55) 0%, rgba(6,6,6,0.82) 100%);
+}
+/* Animated revolving ring */
+.feat-ring-wrap {
+  position:relative; z-index:2;
+  display:flex; align-items:center; justify-content:center;
+  width:340px; height:340px;
+}
+.feat-ring {
+  position:absolute; border-radius:50%;
+  border:1px solid rgba(201,169,110,0.12);
+}
+.feat-ring-1 { width:340px; height:340px; animation:rotate 35s linear infinite; border-style:dashed; }
+.feat-ring-2 { width:270px; height:270px; animation:rotate 25s linear infinite reverse; }
+.feat-ring-3 { width:200px; height:200px; animation:rotate 18s linear infinite; border-color:rgba(201,169,110,0.08); }
+.feat-crest {
+  position:relative; z-index:3; text-align:center;
+}
+.feat-crest-letter { font-family:var(--serif); font-size:72px; font-weight:300; color:var(--gold); line-height:1; }
+.feat-crest-name { font-family:var(--mono); font-size:9px; letter-spacing:.3em; text-transform:uppercase; color:var(--fog); margin-top:6px; }
+.featured-content {
+  padding:80px 72px; display:flex; flex-direction:column; justify-content:center;
+  background:var(--ink-2);
+}
+.featured-content .eyebrow { margin-bottom:24px; }
+.featured-content .eyebrow::before { display:none; }
+.feat-title { font-family:var(--serif); font-size:clamp(40px, 4vw, 64px); font-weight:300; color:var(--white); line-height:1; margin-bottom:26px; }
+.feat-title em { font-style:italic; color:var(--gold); }
+.feat-body { font-size:15px; font-weight:300; color:var(--haze); line-height:1.8; margin-bottom:40px; }
+.feat-data {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:20px;
+  padding:28px 0; margin-bottom:40px;
+  border-top:1px solid rgba(201,169,110,0.1);
+  border-bottom:1px solid rgba(201,169,110,0.1);
+}
+.feat-datum-v { font-family:var(--serif); font-size:30px; font-weight:300; color:var(--gold); display:block; margin-bottom:5px; }
+.feat-datum-k { font-family:var(--mono); font-size:9px; letter-spacing:.16em; text-transform:uppercase; color:var(--fog); }
+
+/* ─── CONSIGNACIÓN ─── */
+.consig { padding:110px 0; background:var(--ink); position:relative; overflow:hidden; }
+.consig::before {
+  content:''; position:absolute; inset:0; z-index:0;
+  background:url('https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883222/IMG_7374_amtlpl.png') center/cover no-repeat;
+  opacity:.08; pointer-events:none;
+}
+.consig .sec-inner { position:relative; z-index:1; }
+.consig-card {
+  border:1px solid rgba(201,169,110,0.15);
+  background:var(--ink-2);
+  position:relative; overflow:hidden;
+}
+.consig-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(to right, var(--gold), transparent);
+}
+.consig-inner { display:grid; grid-template-columns:1fr 1fr; align-items:stretch; }
+.consig-content .eyebrow::before { display:none; }
+.consig-title { font-family:var(--serif); font-size:clamp(36px,3.5vw,56px); font-weight:300; color:var(--white); line-height:1.1; margin:20px 0 28px; }
+.consig-title em { font-style:italic; color:var(--gold); }
+.consig-content { padding:56px 52px; }
+.benefits { display:flex; flex-direction:column; gap:22px; margin-bottom:44px; }
+.benefit { display:flex; gap:18px; align-items:flex-start; }
+.benefit-icon {
+  width:44px; height:44px; border:1px solid rgba(201,169,110,0.2);
+  display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px;
+}
+.benefit-icon svg { width:20px; height:20px; stroke:var(--gold); fill:none; }
+.benefit-body strong {
+  display:block; font-family:var(--mono); font-size:11px; font-weight:400; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--white); margin-bottom:5px;
+}
+.benefit-body p { font-size:14px; color:var(--mist); line-height:1.6; font-weight:300; }
+/* Form */
+.consig-form {
+  background:var(--ink-3); border-left:1px solid rgba(201,169,110,0.1); padding:56px 52px;
+  position:relative; overflow:hidden;
+}
+.consig-form::before { display:none; }
+.form-title { font-family:var(--serif); font-size:28px; font-weight:300; color:var(--white); margin-bottom:8px; }
+.form-sub { font-size:13px; color:var(--mist); margin-bottom:36px; font-weight:300; }
+.frow { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
+.fgroup { display:flex; flex-direction:column; gap:8px; margin-bottom:16px; }
+.flabel { font-family:var(--mono); font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:var(--fog); }
+.finput, .fselect {
+  background:var(--ink-3); border:1px solid rgba(255,255,255,0.07);
+  color:var(--white); font-family:var(--sans); font-size:14px; font-weight:300;
+  padding:14px 18px; outline:none; transition:border-color .3s; appearance:none; width:100%;
+}
+.finput:focus, .fselect:focus { border-color:rgba(201,169,110,0.4); }
+.finput::placeholder { color:var(--ash); }
+.fselect option { background:var(--ink-3); }
+
+/* ─── TESTIMONIALS ─── */
+.testimonials { padding:100px 0; background:var(--ink-1); position:relative; overflow:hidden; }
+.testimonials::before {
+  content:''; position:absolute; inset:0; z-index:0;
+  background:url('https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882730/IMG_7376_qc5oiw.png') center/cover no-repeat;
+  opacity:.09; pointer-events:none;
+}
+.testimonials .sec-inner { position:relative; z-index:1; }
+.test-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-top:64px; }
+.test-card {
+  background:var(--ink-2); padding:44px 40px; position:relative;
+  transition:background .4s var(--silk); overflow:hidden; cursor:none;
+}
+.test-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(to right, var(--gold), transparent); opacity:0;
+  transition:opacity .4s;
+}
+.test-card:hover { background:var(--ink-3); }
+.test-card:hover::before { opacity:1; }
+.test-q { font-family:var(--serif); font-size:72px; font-weight:300; color:var(--gold); line-height:.4; margin-bottom:24px; opacity:.4; }
+.test-text { font-family:var(--serif); font-size:18px; font-weight:300; font-style:italic; line-height:1.65; color:var(--smoke); margin-bottom:32px; }
+.test-rule { width:28px; height:1px; background:var(--gold); opacity:.4; margin-bottom:22px; }
+.test-name { font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--white); margin-bottom:5px; }
+.test-loc { font-size:12px; color:var(--fog); }
+.test-car { margin-top:16px; font-family:var(--mono); font-size:9px; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); }
+
+/* ─── CLUB ─── */
+.club { padding:110px 0; background:var(--ink); position:relative; overflow:hidden; }
+.club::before {
+  content:''; position:absolute; inset:0; z-index:0;
+  background:url('https://res.cloudinary.com/dvvuwigmy/image/upload/v1780886166/IMG_7433_zh51ky.jpg') center/cover no-repeat;
+  opacity:.10; pointer-events:none;
+}
+.club .sec-inner { position:relative; z-index:1; }
+.club-inner { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+.club-visual {
+  position:relative; height:520px; background:var(--ink-2);
+  border:1px solid rgba(201,169,110,0.08); overflow:hidden;
+  display:flex; align-items:center; justify-content:center;
+}
+.club-visual::before {
+  content:''; position:absolute; inset:0; z-index:0;
+  background:url('https://res.cloudinary.com/dvvuwigmy/image/upload/v1780886166/IMG_7433_zh51ky.jpg') center/cover no-repeat;
+  opacity:.32;
+}
+.club-grid-bg {
+  position:absolute; inset:0; z-index:1;
+  background:
+    repeating-linear-gradient(0deg, transparent, transparent 49px, rgba(201,169,110,0.03) 50px),
+    repeating-linear-gradient(90deg, transparent, transparent 49px, rgba(201,169,110,0.03) 50px);
+}
+.club-emblem { position:relative; z-index:2; text-align:center; }
+.c-ring { position:absolute; border-radius:50%; border:1px solid rgba(201,169,110,0.15); top:50%; left:50%; transform:translate(-50%,-50%); z-index:2; }
+.c-ring-1 { width:280px; height:280px; animation:rotate 30s linear infinite; }
+.c-ring-2 { width:210px; height:210px; animation:rotate 22s linear infinite reverse; border-style:dashed; border-color:rgba(201,169,110,0.08); }
+.c-ring-3 { width:150px; height:150px; animation:rotate 16s linear infinite; }
+.c-j { font-family:var(--serif); font-size:80px; font-weight:300; color:var(--gold); line-height:1; }
+.c-name { font-family:var(--mono); font-size:9px; letter-spacing:.3em; text-transform:uppercase; color:var(--fog); margin-top:6px; }
+.club-content .eyebrow::before { display:none; }
+.club-title { font-family:var(--serif); font-size:clamp(36px,3.5vw,54px); font-weight:300; color:var(--white); line-height:1.1; margin:20px 0 24px; }
+.club-title em { font-style:italic; color:var(--gold); }
+.club-desc { font-size:15px; font-weight:300; color:var(--haze); line-height:1.8; margin-bottom:40px; }
+.club-perks { display:flex; flex-direction:column; gap:16px; margin-bottom:44px; }
+.club-perk { display:flex; align-items:center; gap:14px; font-size:14px; color:var(--haze); font-weight:300; }
+.perk-check { width:22px; height:22px; border:1px solid rgba(201,169,110,0.3); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.perk-check svg { width:10px; height:10px; stroke:var(--gold); fill:none; }
+.club-form { display:flex; gap:0; }
+.club-input {
+  flex:1; background:var(--ink-3); border:1px solid rgba(201,169,110,0.2); border-right:none;
+  color:var(--white); font-family:var(--sans); font-size:14px; font-weight:300;
+  padding:16px 20px; outline:none; transition:border-color .3s;
+}
+.club-input::placeholder { color:var(--ash); }
+.club-input:focus { border-color:rgba(201,169,110,0.4); }
+.club-btn {
+  background:var(--gold); border:none; color:var(--ink);
+  font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase;
+  padding:16px 30px; cursor:none; transition:background .3s;
+}
+.club-btn:hover { background:var(--white); }
+
+/* ─── AI CONCIERGE ─── */
+.ai-section { padding:100px 0; background:var(--ink-1); position:relative; overflow:hidden; }
+.ai-section::before {
+  content:''; position:absolute; inset:0; z-index:0;
+  background:url('https://res.cloudinary.com/dvvuwigmy/image/upload/v1780886167/IMG_7434_b24rvo.jpg') center/cover no-repeat;
+  opacity:.10; pointer-events:none;
+}
+.ai-section .sec-inner, .ai-section .ai-wrap { position:relative; z-index:1; }
+.ai-wrap { max-width:800px; margin:0 auto; }
+.chat-window {
+  background:var(--ink-2); border:1px solid rgba(201,169,110,0.12); overflow:hidden;
+  box-shadow:0 32px 80px rgba(0,0,0,.5), 0 0 0 1px rgba(201,169,110,0.05);
+}
+.chat-header {
+  background:var(--ink-3); border-bottom:1px solid rgba(201,169,110,0.08);
+  padding:18px 28px; display:flex; align-items:center; gap:14px;
+  position:relative; overflow:hidden;
+}
+.chat-header::after {
+  content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(to right, var(--gold), transparent); opacity:.5;
+}
+.chat-dot { width:8px; height:8px; border-radius:50%; background:#22c55e; box-shadow:0 0 10px rgba(34,197,94,.6); animation:pulse 2s ease-in-out infinite; }
+.chat-hname { font-family:var(--mono); font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--white); }
+.chat-hsub { font-family:var(--mono); font-size:10px; color:var(--fog); margin-left:auto; }
+.chat-model { font-family:var(--mono); font-size:9px; color:rgba(201,169,110,.5); margin-left:12px; border:1px solid rgba(201,169,110,.2); padding:3px 8px; }
+.chat-msgs { padding:32px 28px; display:flex; flex-direction:column; gap:22px; min-height:300px; max-height:460px; overflow-y:auto; }
+.chat-msgs::-webkit-scrollbar { width:4px; }
+.chat-msgs::-webkit-scrollbar-track { background:transparent; }
+.chat-msgs::-webkit-scrollbar-thumb { background:rgba(201,169,110,.2); border-radius:2px; }
+.msg { max-width:78%; display:flex; flex-direction:column; gap:6px; }
+.msg.bot { align-self:flex-start; }
+.msg.user { align-self:flex-end; }
+.msg-bubble { padding:14px 20px; font-size:14px; font-weight:300; line-height:1.65; }
+.msg.bot .msg-bubble { background:var(--ink-3); border:1px solid rgba(255,255,255,0.05); color:var(--smoke); }
+.msg.user .msg-bubble { background:var(--gold-dim); border:1px solid rgba(201,169,110,.2); color:var(--white); }
+.msg-time { font-family:var(--mono); font-size:10px; color:var(--fog); padding:0 4px; }
+.msg.user .msg-time { text-align:right; }
+.typing-dots { display:flex; gap:5px; align-items:center; padding:4px 0; }
+.typing-dots span { width:6px; height:6px; border-radius:50%; background:var(--gold); opacity:.4; animation:typingBounce 1.4s ease-in-out infinite; }
+.typing-dots span:nth-child(2) { animation-delay:.2s; }
+.typing-dots span:nth-child(3) { animation-delay:.4s; }
+@keyframes typingBounce { 0%,80%,100% { transform:translateY(0); opacity:.4; } 40% { transform:translateY(-6px); opacity:1; } }
+.chat-foot {
+  border-top:1px solid rgba(201,169,110,0.07); padding:18px 28px;
+  display:flex; gap:12px; align-items:center; background:var(--ink-3);
+}
+.chat-inp {
+  flex:1; background:var(--ink-4); border:1px solid rgba(255,255,255,0.06);
+  color:var(--white); font-family:var(--sans); font-size:14px; font-weight:300;
+  padding:13px 18px; outline:none; transition:border-color .3s;
+}
+.chat-inp:focus { border-color:rgba(201,169,110,.3); }
+.chat-inp::placeholder { color:var(--ash); }
+.chat-send {
+  width:46px; height:46px; background:var(--gold); border:none;
+  cursor:none; transition:background .3s; display:flex; align-items:center; justify-content:center; flex-shrink:0;
+}
+.chat-send:hover { background:var(--white); }
+.chat-send svg { width:16px; height:16px; stroke:var(--ink); fill:none; }
+.ai-hint { text-align:center; margin-top:20px; font-size:13px; color:var(--fog); font-weight:300; }
+.ai-hint span { color:var(--gold); border-bottom:1px solid rgba(201,169,110,.3); cursor:pointer; }
+
+/* ─── FOOTER ─── */
+footer { background:var(--ink-1); border-top:1px solid rgba(201,169,110,0.08); }
+.footer-top {
+  display:grid; grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:60px; padding:80px 72px 60px;
+}
+.footer-brand { font-family:var(--serif); font-size:26px; font-weight:400; letter-spacing:.18em; color:var(--white); margin-bottom:18px; }
+.footer-brand span { color:var(--gold); }
+.footer-about { font-size:14px; color:var(--fog); line-height:1.7; font-weight:300; margin-bottom:28px; max-width:260px; }
+.footer-contact-row { display:flex; align-items:center; gap:10px; font-size:13px; color:var(--mist); margin-bottom:10px; font-weight:300; }
+.footer-contact-row svg { width:14px; height:14px; stroke:var(--gold); fill:none; flex-shrink:0; }
+.footer-col-title { font-family:var(--mono); font-size:9px; letter-spacing:.24em; text-transform:uppercase; color:var(--gold); margin-bottom:22px; }
+.footer-links { list-style:none; display:flex; flex-direction:column; gap:12px; }
+.footer-links a { font-size:13px; color:var(--fog); text-decoration:none; transition:color .3s; font-weight:300; }
+.footer-links a:hover { color:var(--smoke); }
+.footer-bottom {
+  border-top:1px solid rgba(201,169,110,0.06); padding:24px 72px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.footer-copy { font-family:var(--mono); font-size:10px; color:var(--fog); letter-spacing:.1em; }
+.footer-copy span { color:var(--gold); }
+.footer-socials { display:flex; gap:16px; }
+.social-btn { width:36px; height:36px; border:1px solid rgba(255,255,255,.08); display:flex; align-items:center; justify-content:center; transition:all .3s; cursor:none; text-decoration:none; }
+.social-btn svg { width:14px; height:14px; stroke:var(--fog); fill:none; transition:stroke .3s; }
+.social-btn:hover { border-color:rgba(201,169,110,.35); }
+.social-btn:hover svg { stroke:var(--gold); }
+
+/* ─── PHOTO SLIDER ─── */
+.car-slider {
+  position:relative; width:100%; height:100%; overflow:hidden;
+}
+.car-slides {
+  display:flex; height:100%; transition:transform .45s var(--silk);
+  will-change:transform; user-select:none;
+}
+.car-slide {
+  min-width:100%; height:100%; flex-shrink:0; overflow:hidden;
+  display:flex; align-items:center; justify-content:center;
+}
+.car-slide img {
+  width:100%; height:100%; object-fit:cover;
+  pointer-events:none; draggable: false;
+}
+.slider-dots {
+  position:absolute; bottom:10px; left:0; right:0;
+  display:flex; justify-content:center; gap:5px; z-index:5;
+}
+.slider-dot {
+  width:5px; height:5px; border-radius:50%;
+  background:rgba(255,255,255,0.35); border:none; padding:0; cursor:pointer;
+  transition:background .25s, transform .25s;
+}
+.slider-dot.active { background:var(--gold); transform:scale(1.3); }
+.slider-arr {
+  position:absolute; top:50%; transform:translateY(-50%);
+  z-index:5; width:28px; height:28px;
+  background:rgba(6,6,6,0.55); border:1px solid rgba(201,169,110,0.25);
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; opacity:0; transition:opacity .3s;
+}
+.car-card:hover .slider-arr { opacity:1; }
+.slider-arr svg { width:12px; height:12px; stroke:var(--gold); fill:none; stroke-width:2; }
+.slider-arr.prev { left:8px; }
+.slider-arr.next { right:8px; }
+
+/* ─── KEYFRAMES ─── */
+@keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes scrollPulse { 0%,100% { opacity:1; transform:scaleY(1); transform-origin:top; } 50% { opacity:.4; transform:scaleY(.5); transform-origin:top; } }
+@keyframes rotate { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
+@keyframes rotate-reverse { from { transform:rotate(0deg); } to { transform:rotate(-360deg); } }
+@keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:.4; } }
+
+/* ─── MOBILE ─── */
+@media(max-width:1024px) {
+  /* NAV */
+  nav { padding:0 20px; height:64px; }
+  .nav-links { display:none; }
+  .nav-logo img { height:36px; }
+  .nav-wa { padding:9px 16px; font-size:9px; }
+
+  /* HERO */
+  .hero { height:100vh; min-height:700px; }
+  .hero-bg { display:block; }
+  .hero-bg::after { background:rgba(6,6,6,0.62); }
+  .hero-video-wrap { display:none; }
+  .hero-video-mobile { display:none; }
+  .hero-year { display:none; }
+  .hero-scroll-cue { right:20px; bottom:24px; }
+  .hero-content {
+    max-width:100%;
+    padding:0 20px 72px;
+  }
+  .hero-headline, .hero-headline-2 {
+    font-size: clamp(42px, 11vw, 64px);
+  }
+  .hero-sub { font-size:14px; margin-bottom:36px; }
+  .hero-actions { flex-direction:column; gap:12px; }
+  .btn-gold, .btn-ghost { width:100%; text-align:center; padding:16px 24px; }
+
+  /* MARQUEE */
+  .marquee-item { padding:0 24px; gap:20px; }
+
+  /* STATS */
+  .stats { grid-template-columns:repeat(2,1fr); }
+  .stat { padding:28px 16px; }
+  .stat-num { font-size:38px; }
+
+  /* SECTION COMMONS */
+  .sec-inner { padding-left:20px; padding-right:20px; }
+  .sec-head { margin-bottom:44px; }
+  .sec-title { font-size:clamp(30px, 7vw, 48px); }
+
+  /* NOSOTROS */
+  .nosotros-inner { grid-template-columns:1fr; gap:48px; padding:0 20px; }
+  .nos-title { font-size:clamp(28px,7vw,44px); }
+
+  /* BRANDS (legacy - ocultar si queda alguna referencia) */
+  .brands { display:none; }
+  .brands-rail { display:none; }
+
+  /* INVENTARIO */
+  .inventario { padding:72px 0; }
+  .filters { gap:6px; margin-bottom:36px; }
+  .filter-btn { padding:9px 16px; font-size:9px; }
+  .cars-grid { grid-template-columns:1fr 1fr; gap:2px; }
+  .car-img { height:180px; }
+  .car-body { padding:18px 16px 20px; }
+  .car-name { font-size:20px; margin-bottom:12px; }
+  .car-specs { gap:14px; }
+  .car-price { font-size:19px; }
+
+  /* FEATURED */
+  .featured { grid-template-columns:1fr; }
+  .featured-visual { height:280px; }
+  .feat-ring-wrap { width:220px; height:220px; }
+  .feat-ring-1 { width:220px; height:220px; }
+  .feat-ring-2 { width:170px; height:170px; }
+  .feat-ring-3 { width:120px; height:120px; }
+  .feat-crest-letter { font-size:52px; }
+  .featured-content { padding:48px 20px; }
+  .feat-title { font-size:clamp(32px, 7vw, 48px); }
+  .feat-data { grid-template-columns:repeat(3,1fr); gap:12px; padding:20px 0; margin-bottom:28px; }
+  .feat-datum-v { font-size:22px; }
+
+  /* CONSIGNACIÓN */
+  .consig { padding:72px 0; }
+  .consig-inner { grid-template-columns:1fr; }
+  .consig-content { padding:36px 24px; }
+  .consig-title { font-size:clamp(28px,7vw,44px); }
+  .consig .consig-form { padding:36px 24px; border-left:none; border-top:1px solid rgba(201,169,110,0.1); }
+  .frow { grid-template-columns:1fr; gap:0; }
+
+  /* TESTIMONIOS */
+  .testimonials { padding:72px 0; }
+  .test-grid { grid-template-columns:1fr; gap:2px; margin-top:40px; }
+  .test-card { padding:32px 24px; }
+  .test-text { font-size:16px; }
+
+  /* CLUB */
+  .club { padding:72px 0; }
+  .club-inner { grid-template-columns:1fr; gap:40px; }
+  .club-visual { height:280px; }
+  .c-ring-1 { width:200px; height:200px; }
+  .c-ring-2 { width:150px; height:150px; }
+  .c-ring-3 { width:110px; height:110px; }
+  .c-j { font-size:60px; }
+  .club-title { font-size:clamp(28px,7vw,44px); }
+  .club-form { flex-direction:column; }
+  .club-input { border-right:1px solid rgba(201,169,110,0.2); border-bottom:none; }
+  .club-btn { padding:16px; }
+
+  /* AI */
+  .ai-section { padding:72px 0; }
+  .chat-msgs { min-height:220px; max-height:320px; padding:20px 16px; }
+  .chat-header { padding:14px 16px; }
+  .chat-foot { padding:12px 16px; }
+  .chat-inp { font-size:13px; }
+
+  /* FOOTER */
+  .footer-top { grid-template-columns:1fr 1fr; gap:36px; padding:56px 20px 40px; }
+  .footer-bottom { flex-direction:column; gap:16px; text-align:center; padding:20px; }
+
+  /* WA FLOAT */
+  .wa-float { bottom:20px; right:20px; width:48px; height:48px; }
+  .wa-float svg { width:22px; height:22px; }
+
+  /* CURSOR desactivado en touch */
+  #cur, #cur-ring { display:none; }
+  body { cursor:auto; }
+  .btn-gold, .btn-ghost, .btn-ver, .filter-btn, .nav-wa,
+  .car-card, .brand-cell, .club-btn, .chat-send, .social-btn { cursor:pointer; }
+}
+
+@media(max-width:640px) {
+  .hero-scroll-cue { display:none; }
+  .cars-grid { grid-template-columns:1fr; }
+  .brands-rail { grid-template-columns:1fr 1fr; }
+  .footer-top { grid-template-columns:1fr; padding:40px 20px; }
+  .frow { grid-template-columns:1fr; }
+  .hero-actions .btn-gold, .hero-actions .btn-ghost { font-size:9px; padding:14px 20px; }
+  .filters { justify-content:flex-start; overflow-x:auto; flex-wrap:nowrap; padding-bottom:4px; }
+  .filter-btn { flex-shrink:0; }
+  .feat-data { gap:8px; }
+  .feat-datum-v { font-size:18px; }
+}
+
+/* ─── WHATSAPP FLOAT ─── */
+.wa-float {
+  position:fixed; bottom:36px; right:36px; z-index:900;
+  width:56px; height:56px; border-radius:50%; background:#25d366;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 8px 32px rgba(37,211,102,.3);
+  cursor:none; text-decoration:none;
+  animation:fadeIn 1s var(--silk) 2s both;
+  transition:transform .3s var(--silk), box-shadow .3s;
+}
+.wa-float:hover { transform:scale(1.1); box-shadow:0 12px 40px rgba(37,211,102,.45); }
+.wa-float svg { width:28px; height:28px; fill:white; }
+
+.nosotros { padding:100px 0; background:var(--ink-1); position:relative; overflow:hidden; }
+.nosotros::before {
+  content:''; position:absolute; inset:0; z-index:0;
+  background:url('https://res.cloudinary.com/dvvuwigmy/image/upload/v1780886166/IMG_7435_zyays6.jpg') center/cover no-repeat;
+  opacity:.10; pointer-events:none;
+}
+.nosotros-inner { position:relative; z-index:1; }
+.nosotros-inner {
+  max-width:1400px; margin:0 auto; padding:0 72px;
+  display:grid; grid-template-columns:1fr 1fr; gap:100px; align-items:center;
+}
+.nos-title {
+  font-family:var(--serif); font-size:clamp(36px, 3.8vw, 58px); font-weight:300;
+  color:var(--white); line-height:1.05; margin:20px 0 28px;
+}
+.nos-title em { font-style:italic; color:var(--gold); }
+.nos-body { font-size:15px; font-weight:300; color:var(--haze); line-height:1.85; }
+.nos-valores {
+  display:flex; flex-direction:column; gap:28px;
+  padding-top:32px; border-top:1px solid rgba(201,169,110,0.1);
+}
+.nos-valor { display:flex; gap:18px; align-items:flex-start; }
+.nos-valor-icon {
+  width:40px; height:40px; border:1px solid rgba(201,169,110,0.25);
+  display:flex; align-items:center; justify-content:center; flex-shrink:0; color:var(--gold);
+}
+.nos-valor-icon svg { width:18px; height:18px; }
+.nos-valor-title {
+  font-family:var(--mono); font-size:10px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--white); margin-bottom:5px; font-weight:400;
+}
+.nos-valor-desc { font-size:13px; color:var(--mist); font-weight:300; line-height:1.6; }
+
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780872832/IMG_7328_cxrqww_setewe.png" alt="JART LUXE" style="height:72px;width:auto;object-fit:contain;margin-bottom:8px;">
+  <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+  <div class="loader-label">Nuevo León · México</div>
+</div>
+
+<!-- CURSOR -->
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<!-- ━━━ NAV ━━━ -->
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780872832/IMG_7328_cxrqww_setewe.png" alt="JART LUXE">
+  </a>
+  <ul class="nav-links">
+    <li><a href="#inventario">Inventario</a></li>
+    <li><a href="#consignacion">Consignación</a></li>
+    <li><a href="#club">Club JART</a></li>
+    <li><a href="#concierge">Concierge IA</a></li>
+  </ul>
+  <a href="https://wa.me/528112345678?text=Hola%20JART%20LUXE%2C%20me%20interesa%20conocer%20su%20inventario" target="_blank" class="nav-wa" rel="noopener">
+    <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Contactar
+  </a>
+</nav>
+
+<!-- ━━━ HERO ━━━ -->
+<section class="hero">
+  <div class="hero-bg">
+    <video autoplay muted loop playsinline preload="auto">
+      <source src="https://res.cloudinary.com/dvvuwigmy/video/upload/q_auto:best,vc_auto/v1780869161/insta_video_50884_c4bnkn.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero-video-wrap">
+    <video autoplay muted loop playsinline preload="auto">
+      <source src="https://res.cloudinary.com/dvvuwigmy/video/upload/q_auto:best,vc_auto/v1780867850/insta_video_87032_axh9uf.mp4" type="video/mp4">
+    </video>
+  </div>
+  <!-- Mobile: video fullscreen de fondo -->
+  <div class="hero-video-mobile">
+    <video autoplay muted loop playsinline preload="auto">
+      <source src="https://res.cloudinary.com/dvvuwigmy/video/upload/q_auto:best,vc_auto/v1780867850/insta_video_87032_axh9uf.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero-grain"></div>
+  <div class="hero-lines">
+    <svg viewBox="0 0 600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="0" y1="0" x2="600" y2="900" stroke="#c9a96e" stroke-width=".5"/>
+      <line x1="100" y1="0" x2="700" y2="900" stroke="#c9a96e" stroke-width=".3"/>
+      <line x1="200" y1="0" x2="800" y2="900" stroke="#c9a96e" stroke-width=".2"/>
+      <circle cx="400" cy="450" r="280" stroke="#c9a96e" stroke-width=".4"/>
+      <circle cx="400" cy="450" r="180" stroke="#c9a96e" stroke-width=".25"/>
+    </svg>
+  </div>
+  <div class="hero-veil"></div>
+  <div class="hero-content">
+    <div class="hero-chip">
+      <div class="hero-chip-line"></div>
+      <div class="hero-chip-text">Boutique Automotriz · Nuevo León</div>
+    </div>
+    <h1 class="hero-headline">Vehículos que</h1>
+    <h1 class="hero-headline-2">definen leyendas.</h1>
+    <p class="hero-sub">Seleccionamos a mano los automóviles más extraordinarios del mercado. Cada unidad, elegida con criterio propio.</p>
+    <div class="hero-actions">
+      <a href="#inventario" class="btn-gold"><span>Ver Inventario</span></a>
+      <a href="#concierge" class="btn-ghost">Hablar con Concierge</a>
+    </div>
+  </div>
+  <div class="hero-year">25</div>
+  <div class="hero-scroll-cue">
+    <span>Descubrir</span>
+    <div class="scroll-pulse"></div>
+  </div>
+</section>
+
+<!-- ━━━ MARQUEE ━━━ -->
+<div class="marquee-wrap">
+  <div class="marquee-track" id="marqueeTrack">
+    <div class="marquee-item"><span class="dot"></span>Porsche</div>
+    <div class="marquee-item"><span class="dot"></span>Mercedes-Benz AMG</div>
+    <div class="marquee-item"><span class="dot"></span>BMW M Series</div>
+    <div class="marquee-item"><span class="dot"></span>Audi RS</div>
+    <div class="marquee-item"><span class="dot"></span>Lamborghini</div>
+    <div class="marquee-item"><span class="dot"></span>Ferrari</div>
+    <div class="marquee-item"><span class="dot"></span>Maserati</div>
+    <div class="marquee-item"><span class="dot"></span>Bentley</div>
+    <div class="marquee-item"><span class="dot"></span>Nuevo León</div>
+    <div class="marquee-item"><span class="dot"></span>San Pedro Garza García</div>
+    <div class="marquee-item"><span class="dot"></span>Envíos a todo México</div>
+    <div class="marquee-item"><span class="dot"></span>Porsche</div>
+    <div class="marquee-item"><span class="dot"></span>Mercedes-Benz AMG</div>
+    <div class="marquee-item"><span class="dot"></span>BMW M Series</div>
+    <div class="marquee-item"><span class="dot"></span>Audi RS</div>
+    <div class="marquee-item"><span class="dot"></span>Lamborghini</div>
+    <div class="marquee-item"><span class="dot"></span>Ferrari</div>
+    <div class="marquee-item"><span class="dot"></span>Maserati</div>
+    <div class="marquee-item"><span class="dot"></span>Bentley</div>
+    <div class="marquee-item"><span class="dot"></span>Nuevo León</div>
+    <div class="marquee-item"><span class="dot"></span>San Pedro Garza García</div>
+    <div class="marquee-item"><span class="dot"></span>Envíos a todo México</div>
+  </div>
+</div>
+
+<!-- ━━━ STATS ━━━ -->
+<div class="stats">
+  <div class="stat reveal">
+    <span class="stat-num">+850</span>
+    <div class="stat-lbl">Vehículos vendidos</div>
+  </div>
+  <div class="stat reveal" style="transition-delay:.1s">
+    <span class="stat-num">8+</span>
+    <div class="stat-lbl">Años de operación</div>
+  </div>
+  <div class="stat reveal" style="transition-delay:.2s">
+    <span class="stat-num">100%</span>
+    <div class="stat-lbl">Historial verificado</div>
+  </div>
+  <div class="stat reveal" style="transition-delay:.3s">
+    <span class="stat-num">12</span>
+    <div class="stat-lbl">Marcas Premium</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ━━━ NOSOTROS ━━━ -->
+<section class="nosotros sec" id="nosotros">
+  <div class="nosotros-inner">
+    <div class="reveal-l">
+      <div class="eyebrow">Quiénes somos</div>
+      <h2 class="nos-title">Una boutique<br>construida sobre<br><em>confianza.</em></h2>
+      <p class="nos-body">JART LUXE nació de una convicción simple: el mercado de autos premium en México merecía un estándar más alto. No solo en los vehículos, sino en la experiencia de compra.</p>
+      <p class="nos-body" style="margin-top:16px;">Somos un equipo de apasionados del mundo automotriz con más de ocho años especializados en la selección, verificación y comercialización de los vehículos más extraordinarios de Nuevo León. Cada unidad que presentamos pasa por un proceso riguroso de inspección que garantiza historial limpio, condición mecánica impecable y transparencia total.</p>
+      <div style="margin-top:44px;">
+        <a href="https://wa.me/528112345678?text=Quiero%20saber%20m%C3%A1s%20sobre%20JART%20LUXE" target="_blank" class="btn-gold" rel="noopener"><span>Hablar con un asesor</span></a>
+      </div>
+    </div>
+    <div class="reveal-r">
+      <div class="nos-valores">
+        <div class="nos-valor">
+          <div class="nos-valor-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+          <div>
+            <div class="nos-valor-title">Transparencia total</div>
+            <div class="nos-valor-desc">Historial, kilometraje y condición verificados. Sin sorpresas.</div>
+          </div>
+        </div>
+        <div class="nos-valor">
+          <div class="nos-valor-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+          </div>
+          <div>
+            <div class="nos-valor-title">Selección rigurosa</div>
+            <div class="nos-valor-desc">Solo publicamos autos que pasan nuestro filtro de calidad. Sin excepciones.</div>
+          </div>
+        </div>
+        <div class="nos-valor">
+          <div class="nos-valor-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          </div>
+          <div>
+            <div class="nos-valor-title">Servicio personalizado</div>
+            <div class="nos-valor-desc">Un asesor dedicado te acompaña desde la búsqueda hasta las llaves.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ━━━ INVENTARIO ━━━ -->
+<section class="inventario sec" id="inventario">
+  <div class="sec-inner">
+    <div class="sec-head center reveal">
+      <div class="eyebrow">Inventario Selecto</div>
+      <h2 class="sec-title">Cada vehículo, <em>elegido</em> a mano</h2>
+      <p class="sec-sub">Unidades certificadas, historial limpio y garantía de carrocería. Entrega a nivel nacional.</p>
+      <p style="margin-top:14px;font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);display:inline-flex;align-items:center;gap:10px;">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h11a2 2 0 012 2v3m0 0h3l3 4v3h-3m-3-7H8m8 7a2 2 0 11-4 0 2 2 0 014 0zm-8 0a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+        Envíos a todo México
+      </p>
+    </div>
+    <div class="filters reveal" style="transition-delay:.15s">
+      <button class="filter-btn active" onclick="setFilter(this,'todos')">Todos</button>
+      <button class="filter-btn" onclick="setFilter(this,'porsche')">Porsche</button>
+      <button class="filter-btn" onclick="setFilter(this,'audi')">Audi</button>
+      <button class="filter-btn" onclick="setFilter(this,'ford')">Ford</button>
+      <button class="filter-btn" onclick="setFilter(this,'toyota')">Toyota</button>
+      <button class="filter-btn" onclick="setFilter(this,'dodge')">Dodge</button>
+    </div>
+    <div class="cars-grid" id="carsGrid">
+
+      <!-- Porsche 911 GT3 2026 0km -->
+      <div class="car-card reveal" data-marca="porsche">
+        <div class="car-img">
+          <div class="car-slider" data-slider>
+            <div class="car-slides">
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882637/IMG_7330_nng7lc.png" alt="Porsche 911 GT3 2026 - foto 1" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882627/IMG_7331_zx47gi.png" alt="Porsche 911 GT3 2026 - foto 2" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882632/IMG_7332_c9a6ns.png" alt="Porsche 911 GT3 2026 - foto 3" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882655/IMG_7333_jsgd09.png" alt="Porsche 911 GT3 2026 - foto 4" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882664/IMG_7334_qftasg.png" alt="Porsche 911 GT3 2026 - foto 5" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882645/IMG_7335_neasv3.png" alt="Porsche 911 GT3 2026 - foto 6" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882660/IMG_7336_vuvlp4.png" alt="Porsche 911 GT3 2026 - foto 7" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882640/IMG_7337_xkib6w.png" alt="Porsche 911 GT3 2026 - foto 8" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882650/IMG_7338_xlcmj3.png" alt="Porsche 911 GT3 2026 - foto 9" loading="lazy"></div>
+            </div>
+            <button class="slider-arr prev" onclick="sliderMove(this,-1)"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <button class="slider-arr next" onclick="sliderMove(this,1)"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+            <div class="slider-dots"></div>
+          </div>
+          <div class="car-badge nuevo" style="z-index:6;position:absolute;top:14px;left:14px;">0 km</div>
+        </div>
+        <div class="car-body">
+          <div class="car-brand">Porsche</div>
+          <div class="car-name">911 GT3<br>2026</div>
+          <div class="car-specs">
+            <div class="car-spec"><span class="spec-v">510 HP</span><span class="spec-k">Potencia</span></div>
+            <div class="car-spec"><span class="spec-v">3.4 seg</span><span class="spec-k">0–100</span></div>
+            <div class="car-spec"><span class="spec-v">0 km</span><span class="spec-k">Km</span></div>
+          </div>
+          <div class="car-foot">
+            <div class="car-price"><small>USD</small>Consultar</div>
+            <a href="https://wa.me/528112345678?text=Me%20interesa%20el%20Porsche%20911%20GT3%202026%200km" class="btn-ver" target="_blank">Consultar</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Porsche 911 GT3 Weissach 2026 0km -->
+      <div class="car-card reveal" style="transition-delay:.1s" data-marca="porsche">
+        <div class="car-img">
+          <div class="car-slider" data-slider>
+            <div class="car-slides">
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882668/IMG_7339_dmnteo.png" alt="Porsche 911 GT3 Weissach 2026 - foto 1" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882672/IMG_7340_jglcv0.png" alt="Porsche 911 GT3 Weissach 2026 - foto 2" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882687/IMG_7341_mxyncz.png" alt="Porsche 911 GT3 Weissach 2026 - foto 3" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882679/IMG_7342_awpp1r.png" alt="Porsche 911 GT3 Weissach 2026 - foto 4" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882675/IMG_7343_azltyn.png" alt="Porsche 911 GT3 Weissach 2026 - foto 5" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882690/IMG_7344_j3zgnv.png" alt="Porsche 911 GT3 Weissach 2026 - foto 6" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882682/IMG_7345_rfj133.png" alt="Porsche 911 GT3 Weissach 2026 - foto 7" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882694/IMG_7346_vrky4g.png" alt="Porsche 911 GT3 Weissach 2026 - foto 8" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882698/IMG_7347_fo7qod.png" alt="Porsche 911 GT3 Weissach 2026 - foto 9" loading="lazy"></div>
+            </div>
+            <button class="slider-arr prev" onclick="sliderMove(this,-1)"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <button class="slider-arr next" onclick="sliderMove(this,1)"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+            <div class="slider-dots"></div>
+          </div>
+          <div class="car-badge exclusivo" style="z-index:6;position:absolute;top:14px;left:14px;">Weissach</div>
+        </div>
+        <div class="car-body">
+          <div class="car-brand">Porsche</div>
+          <div class="car-name">911 GT3 Weissach<br>2026</div>
+          <div class="car-specs">
+            <div class="car-spec"><span class="spec-v">510 HP</span><span class="spec-k">Potencia</span></div>
+            <div class="car-spec"><span class="spec-v">3.4 seg</span><span class="spec-k">0–100</span></div>
+            <div class="car-spec"><span class="spec-v">0 km</span><span class="spec-k">Km</span></div>
+          </div>
+          <div class="car-foot">
+            <div class="car-price"><small>USD</small>Consultar</div>
+            <a href="https://wa.me/528112345678?text=Me%20interesa%20el%20Porsche%20911%20GT3%20Weissach%202026%200km" class="btn-ver" target="_blank">Consultar</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ford Mustang Hard Top 1966 -->
+      <div class="car-card reveal" style="transition-delay:.2s" data-marca="ford">
+        <div class="car-img">
+          <div class="car-slider" data-slider>
+            <div class="car-slides">
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883159/IMG_7348_hks7vb.png" alt="Ford Mustang 1966 - foto 1" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883163/IMG_7349_ezck3x.png" alt="Ford Mustang 1966 - foto 2" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883171/IMG_7350_lnqtia.png" alt="Ford Mustang 1966 - foto 3" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883179/IMG_7351_txoftw.png" alt="Ford Mustang 1966 - foto 4" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883167/IMG_7352_xr3etm.png" alt="Ford Mustang 1966 - foto 5" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883183/IMG_7353_edqpbb.png" alt="Ford Mustang 1966 - foto 6" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883186/IMG_7357_ldbigb.png" alt="Ford Mustang 1966 - foto 7" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883189/IMG_7355_kt1eoi.png" alt="Ford Mustang 1966 - foto 8" loading="lazy"></div>
+            </div>
+            <button class="slider-arr prev" onclick="sliderMove(this,-1)"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <button class="slider-arr next" onclick="sliderMove(this,1)"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+            <div class="slider-dots"></div>
+          </div>
+          <div class="car-badge exclusivo" style="z-index:6;position:absolute;top:14px;left:14px;">Clásico</div>
+        </div>
+        <div class="car-body">
+          <div class="car-brand">Ford</div>
+          <div class="car-name">Mustang Hard Top<br>1966</div>
+          <div class="car-specs">
+            <div class="car-spec"><span class="spec-v">V8</span><span class="spec-k">Motor</span></div>
+            <div class="car-spec"><span class="spec-v">Hard Top</span><span class="spec-k">Carrocería</span></div>
+            <div class="car-spec"><span class="spec-v">Clásico</span><span class="spec-k">Categoría</span></div>
+          </div>
+          <div class="car-foot">
+            <div class="car-price"><small>USD</small>Consultar</div>
+            <a href="https://wa.me/528112345678?text=Me%20interesa%20el%20Ford%20Mustang%20Hard%20Top%201966" class="btn-ver" target="_blank">Consultar</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Porsche Cayenne Turbo GT 2026 0km -->
+      <div class="car-card reveal" style="transition-delay:.3s" data-marca="porsche">
+        <div class="car-img">
+          <div class="car-slider" data-slider>
+            <div class="car-slides">
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882716/IMG_7358_ajkkch.png" alt="Cayenne Turbo GT 2026 - 1" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882707/IMG_7359_l6f9gr.png" alt="Cayenne Turbo GT 2026 - 2" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882703/IMG_7360_d1xr1r.png" alt="Cayenne Turbo GT 2026 - 3" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882711/IMG_7361_qzs123.png" alt="Cayenne Turbo GT 2026 - 4" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882719/IMG_7362_zuyywv.png" alt="Cayenne Turbo GT 2026 - 5" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883202/IMG_7363_fhxtej.png" alt="Cayenne Turbo GT 2026 - 6" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883193/IMG_7364_hgv7bi.png" alt="Cayenne Turbo GT 2026 - 7" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883436/IMG_7365_oka3i1.png" alt="Cayenne Turbo GT 2026 - 8" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883432/IMG_7366_hy9t7m.png" alt="Cayenne Turbo GT 2026 - 9" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883428/IMG_7367_nbkdhy.png" alt="Cayenne Turbo GT 2026 - 10" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883197/IMG_7368_qr6dg4.png" alt="Cayenne Turbo GT 2026 - 11" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883205/IMG_7369_tljjou.png" alt="Cayenne Turbo GT 2026 - 12" loading="lazy"></div>
+            </div>
+            <button class="slider-arr prev" onclick="sliderMove(this,-1)"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <button class="slider-arr next" onclick="sliderMove(this,1)"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+            <div class="slider-dots"></div>
+          </div>
+          <div class="car-badge nuevo" style="z-index:6;position:absolute;top:14px;left:14px;">0 km</div>
+        </div>
+        <div class="car-body">
+          <div class="car-brand">Porsche</div>
+          <div class="car-name">Cayenne Turbo GT<br>2026</div>
+          <div class="car-specs">
+            <div class="car-spec"><span class="spec-v">640 HP</span><span class="spec-k">Potencia</span></div>
+            <div class="car-spec"><span class="spec-v">3.3 seg</span><span class="spec-k">0–100</span></div>
+            <div class="car-spec"><span class="spec-v">0 km</span><span class="spec-k">Km</span></div>
+          </div>
+          <div class="car-foot">
+            <div class="car-price"><small>USD</small>Consultar</div>
+            <a href="https://wa.me/528112345678?text=Me%20interesa%20el%20Porsche%20Cayenne%20Turbo%20GT%202026%200km" class="btn-ver" target="_blank">Consultar</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Porsche 911 GT3 Touring 2026 0km -->
+      <div class="car-card reveal" style="transition-delay:.4s" data-marca="porsche">
+        <div class="car-img">
+          <div class="car-slider" data-slider>
+            <div class="car-slides">
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882723/IMG_7370_x8p5yh.png" alt="911 GT3 Touring 2026 - 1" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883211/IMG_7371_ssurlp.png" alt="911 GT3 Touring 2026 - 2" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882726/IMG_7372_llkovj.png" alt="911 GT3 Touring 2026 - 3" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883218/IMG_7373_pdil4y.png" alt="911 GT3 Touring 2026 - 4" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883222/IMG_7374_amtlpl.png" alt="911 GT3 Touring 2026 - 5" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883214/IMG_7375_qesmiw.png" alt="911 GT3 Touring 2026 - 6" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882730/IMG_7376_qc5oiw.png" alt="911 GT3 Touring 2026 - 7" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883226/IMG_7377_o8f0na.png" alt="911 GT3 Touring 2026 - 8" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882735/IMG_7378_xxswk6.png" alt="911 GT3 Touring 2026 - 9" loading="lazy"></div>
+            </div>
+            <button class="slider-arr prev" onclick="sliderMove(this,-1)"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <button class="slider-arr next" onclick="sliderMove(this,1)"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+            <div class="slider-dots"></div>
+          </div>
+          <div class="car-badge nuevo" style="z-index:6;position:absolute;top:14px;left:14px;">0 km</div>
+        </div>
+        <div class="car-body">
+          <div class="car-brand">Porsche</div>
+          <div class="car-name">911 GT3 Touring<br>2026</div>
+          <div class="car-specs">
+            <div class="car-spec"><span class="spec-v">510 HP</span><span class="spec-k">Potencia</span></div>
+            <div class="car-spec"><span class="spec-v">3.4 seg</span><span class="spec-k">0–100</span></div>
+            <div class="car-spec"><span class="spec-v">0 km</span><span class="spec-k">Km</span></div>
+          </div>
+          <div class="car-foot">
+            <div class="car-price"><small>USD</small>Consultar</div>
+            <a href="https://wa.me/528112345678?text=Me%20interesa%20el%20Porsche%20911%20GT3%20Touring%202026%200km" class="btn-ver" target="_blank">Consultar</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Audi R8 V10 Twin Turbo 2017 -->
+      <div class="car-card reveal" style="transition-delay:.5s" data-marca="audi">
+        <div class="car-img">
+          <div class="car-slider" data-slider>
+            <div class="car-slides">
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883664/IMG_7380_srhufe.png" alt="Audi R8 V10 2017 - 1" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883659/IMG_7379_xuwepi.png" alt="Audi R8 V10 2017 - 2" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883655/IMG_7381_kvwqko.png" alt="Audi R8 V10 2017 - 3" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883638/IMG_7383_eguszs.png" alt="Audi R8 V10 2017 - 4" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883651/IMG_7384_olidhz.png" alt="Audi R8 V10 2017 - 5" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883646/IMG_7385_kj0ngo.png" alt="Audi R8 V10 2017 - 6" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883634/IMG_7386_wyqzxz.png" alt="Audi R8 V10 2017 - 7" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883621/IMG_7387_sdv9ov.png" alt="Audi R8 V10 2017 - 8" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883625/IMG_7388_wzlsd9.png" alt="Audi R8 V10 2017 - 9" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883614/IMG_7389_mybgtz.png" alt="Audi R8 V10 2017 - 10" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883617/IMG_7390_onffe3.png" alt="Audi R8 V10 2017 - 11" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883630/IMG_7391_sf4y8h.png" alt="Audi R8 V10 2017 - 12" loading="lazy"></div>
+            </div>
+            <button class="slider-arr prev" onclick="sliderMove(this,-1)"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <button class="slider-arr next" onclick="sliderMove(this,1)"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+            <div class="slider-dots"></div>
+          </div>
+          <div class="car-badge exclusivo" style="z-index:6;position:absolute;top:14px;left:14px;">Disponible</div>
+        </div>
+        <div class="car-body">
+          <div class="car-brand">Audi</div>
+          <div class="car-name">R8 V10 Twin Turbo<br>2017</div>
+          <div class="car-specs">
+            <div class="car-spec"><span class="spec-v">610 HP</span><span class="spec-k">Potencia</span></div>
+            <div class="car-spec"><span class="spec-v">3.5 seg</span><span class="spec-k">0–100</span></div>
+            <div class="car-spec"><span class="spec-v">Consultar</span><span class="spec-k">Km</span></div>
+          </div>
+          <div class="car-foot">
+            <div class="car-price"><small>USD</small>Consultar</div>
+            <a href="https://wa.me/528112345678?text=Me%20interesa%20el%20Audi%20R8%20V10%20Twin%20Turbo%202017" class="btn-ver" target="_blank">Consultar</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Porsche 911T 1970 RWB Original -->
+      <div class="car-card reveal" style="transition-delay:.6s" data-marca="porsche">
+        <div class="car-img">
+          <div class="car-slider" data-slider>
+            <div class="car-slides">
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883854/IMG_7392_zvpd1j.png" alt="Porsche 911T 1970 RWB - 1" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883858/IMG_7393_m4cnns.png" alt="Porsche 911T 1970 RWB - 2" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883862/IMG_7394_vf3gtq.png" alt="Porsche 911T 1970 RWB - 3" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883866/IMG_7395_ftsia7.png" alt="Porsche 911T 1970 RWB - 4" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883901/IMG_7396_ph7dxi.png" alt="Porsche 911T 1970 RWB - 5" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883880/IMG_7397_v0qoub.png" alt="Porsche 911T 1970 RWB - 6" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883875/IMG_7398_gbzo2z.png" alt="Porsche 911T 1970 RWB - 7" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883896/IMG_7399_kjmzse.png" alt="Porsche 911T 1970 RWB - 8" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883909/IMG_7400_di6upt.png" alt="Porsche 911T 1970 RWB - 9" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883920/IMG_7401_m0pgkh.png" alt="Porsche 911T 1970 RWB - 10" loading="lazy"></div>
+            </div>
+            <button class="slider-arr prev" onclick="sliderMove(this,-1)"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <button class="slider-arr next" onclick="sliderMove(this,1)"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+            <div class="slider-dots"></div>
+          </div>
+          <div class="car-badge exclusivo" style="z-index:6;position:absolute;top:14px;left:14px;">RWB Original</div>
+        </div>
+        <div class="car-body">
+          <div class="car-brand">Porsche</div>
+          <div class="car-name">911T RWB Original<br>1970</div>
+          <div class="car-specs">
+            <div class="car-spec"><span class="spec-v">Flat-6</span><span class="spec-k">Motor</span></div>
+            <div class="car-spec"><span class="spec-v">78,971 km</span><span class="spec-k">Km</span></div>
+            <div class="car-spec"><span class="spec-v">Clásico</span><span class="spec-k">Categoría</span></div>
+          </div>
+          <div class="car-foot">
+            <div class="car-price"><small>USD</small>Consultar</div>
+            <a href="https://wa.me/528112345678?text=Me%20interesa%20el%20Porsche%20911T%201970%20RWB%20Original" class="btn-ver" target="_blank">Consultar</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Toyota Supra MK4 2JZ-GE 1993 -->
+      <div class="car-card reveal" style="transition-delay:.7s" data-marca="toyota">
+        <div class="car-img">
+          <div class="car-slider" data-slider>
+            <div class="car-slides">
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883924/IMG_7402_r0l79e.png" alt="Supra MK4 1993 - 1" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882794/IMG_7403_pwsxs2.png" alt="Supra MK4 1993 - 2" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883928/IMG_7404_gk5m9n.png" alt="Supra MK4 1993 - 3" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882798/IMG_7405_oj2lbs.png" alt="Supra MK4 1993 - 4" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883913/IMG_7406_ushnsy.png" alt="Supra MK4 1993 - 5" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883840/IMG_7407_qlrp71.png" alt="Supra MK4 1993 - 6" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883836/IMG_7408_f2t9j6.png" alt="Supra MK4 1993 - 7" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882751/IMG_7409_gkawlu.png" alt="Supra MK4 1993 - 8" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882747/IMG_7410_sumgnj.png" alt="Supra MK4 1993 - 9" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883851/IMG_7411_v1ekjr.png" alt="Supra MK4 1993 - 10" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883844/IMG_7412_ttgmld.png" alt="Supra MK4 1993 - 11" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883847/IMG_7413_nxdfkc.png" alt="Supra MK4 1993 - 12" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882739/IMG_7414_zzoel1.png" alt="Supra MK4 1993 - 13" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882759/IMG_7415_p2jcut.png" alt="Supra MK4 1993 - 14" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882743/IMG_7416_bchpxc.png" alt="Supra MK4 1993 - 15" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882763/IMG_7417_bo925c.png" alt="Supra MK4 1993 - 16" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882767/IMG_7418_otxbmo.png" alt="Supra MK4 1993 - 17" loading="lazy"></div>
+            </div>
+            <button class="slider-arr prev" onclick="sliderMove(this,-1)"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <button class="slider-arr next" onclick="sliderMove(this,1)"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+            <div class="slider-dots"></div>
+          </div>
+          <div class="car-badge exclusivo" style="z-index:6;position:absolute;top:14px;left:14px;">JDM Ícono</div>
+        </div>
+        <div class="car-body">
+          <div class="car-brand">Toyota</div>
+          <div class="car-name">Supra MK4 2JZ-GE<br>1993</div>
+          <div class="car-specs">
+            <div class="car-spec"><span class="spec-v">2JZ-GE</span><span class="spec-k">Motor</span></div>
+            <div class="car-spec"><span class="spec-v">165,000 km</span><span class="spec-k">Km</span></div>
+            <div class="car-spec"><span class="spec-v">JDM</span><span class="spec-k">Categoría</span></div>
+          </div>
+          <div class="car-foot">
+            <div class="car-price"><small>USD</small>Consultar</div>
+            <a href="https://wa.me/528112345678?text=Me%20interesa%20el%20Toyota%20Supra%20MK4%202JZ%201993" class="btn-ver" target="_blank">Consultar</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dodge Charger Hellcat 2023 Widebody -->
+      <div class="car-card reveal" style="transition-delay:.8s" data-marca="dodge">
+        <div class="car-img">
+          <div class="car-slider" data-slider>
+            <div class="car-slides">
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882755/IMG_7419_fgshpl.png" alt="Charger Hellcat 2023 - 1" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882776/IMG_7420_ggamj9.png" alt="Charger Hellcat 2023 - 2" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882771/IMG_7421_a20rci.png" alt="Charger Hellcat 2023 - 3" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882780/IMG_7422_fydme0.png" alt="Charger Hellcat 2023 - 4" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882787/IMG_7423_wtjod6.png" alt="Charger Hellcat 2023 - 5" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883892/IMG_7424_p8ebok.png" alt="Charger Hellcat 2023 - 6" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883904/IMG_7425_yi3afx.png" alt="Charger Hellcat 2023 - 7" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883870/IMG_7426_xuudyt.png" alt="Charger Hellcat 2023 - 8" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882790/IMG_7427_b1eiem.png" alt="Charger Hellcat 2023 - 9" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883888/IMG_7428_w0ix5p.png" alt="Charger Hellcat 2023 - 10" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780882784/IMG_7429_orjdw6.png" alt="Charger Hellcat 2023 - 11" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883885/IMG_7430_aa1eya.png" alt="Charger Hellcat 2023 - 12" loading="lazy"></div>
+              <div class="car-slide"><img src="https://res.cloudinary.com/dvvuwigmy/image/upload/v1780883917/IMG_7431_bskjje.png" alt="Charger Hellcat 2023 - 13" loading="lazy"></div>
+            </div>
+            <button class="slider-arr prev" onclick="sliderMove(this,-1)"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <button class="slider-arr next" onclick="sliderMove(this,1)"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+            <div class="slider-dots"></div>
+          </div>
+          <div class="car-badge nuevo" style="z-index:6;position:absolute;top:14px;left:14px;">Widebody</div>
+        </div>
+        <div class="car-body">
+          <div class="car-brand">Dodge</div>
+          <div class="car-name">Charger Hellcat<br>Widebody 2023</div>
+          <div class="car-specs">
+            <div class="car-spec"><span class="spec-v">707 HP</span><span class="spec-k">Potencia</span></div>
+            <div class="car-spec"><span class="spec-v">3.7 seg</span><span class="spec-k">0–100</span></div>
+            <div class="car-spec"><span class="spec-v">18,000 km</span><span class="spec-k">Km</span></div>
+          </div>
+          <div class="car-foot">
+            <div class="car-price"><small>USD</small>Consultar</div>
+            <a href="https://wa.me/528112345678?text=Me%20interesa%20el%20Dodge%20Charger%20Hellcat%20Widebody%202023" class="btn-ver" target="_blank">Consultar</a>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+    <div style="text-align:center;margin-top:56px" class="reveal">
+      <a href="https://wa.me/528112345678?text=Quiero%20ver%20el%20inventario%20completo%20de%20JART%20LUXE" class="btn-gold" target="_blank"><span>Ver inventario completo</span></a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ━━━ AI CONCIERGE ━━━ -->
+<section class="ai-section sec" id="concierge">
+  <div class="sec-inner">
+    <div class="sec-head center reveal">
+      <div class="eyebrow">Concierge IA</div>
+      <h2 class="sec-title">Tu asistente<br><em>personal</em> de lujo</h2>
+      <p class="sec-sub">Impulsado por inteligencia artificial. Conoce cada vehículo, cada detalle técnico y cada opción de financiamiento. Disponible las 24 horas.</p>
+    </div>
+    <div class="ai-wrap reveal" style="transition-delay:.2s">
+      <div class="chat-window">
+        <div class="chat-header">
+          <div class="chat-dot"></div>
+          <div>
+            <div class="chat-hname">JART Concierge</div>
+          </div>
+          <div class="chat-model">Groq AI</div>
+          <div class="chat-hsub">Responde en segundos</div>
+        </div>
+        <div class="chat-msgs" id="chatMsgs">
+          <div class="msg bot">
+            <div class="msg-bubble">Bienvenido a JART LUXE. Soy tu concierge personal. ¿Qué vehículo extraordinario estás buscando hoy? Puedo ayudarte con nuestro inventario, comparar modelos, opciones de financiamiento o gestionar la consignación de tu auto.</div>
+            <div class="msg-time">Ahora</div>
+          </div>
+        </div>
+        <div class="chat-foot">
+          <input type="text" class="chat-inp" id="chatInp" placeholder="Ej: Busco un Porsche 911 bajo 200k..." onkeypress="chatKey(event)">
+          <button class="chat-send" onclick="sendMsg()">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          </button>
+        </div>
+      </div>
+      <p class="ai-hint">Prueba: <span onclick="fillChat('¿Tienen algún Porsche GT3 disponible?')">¿Tienen algún Porsche GT3?</span> o <span onclick="fillChat('¿Cuáles son las opciones de financiamiento?')">¿Opciones de financiamiento?</span></p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ━━━ FEATURED PORSCHE ━━━ -->
+<section class="featured sec">
+  <div class="featured-visual reveal-l">
+    <div class="featured-visual-bg"></div>
+    <div class="feat-ring-wrap">
+      <div class="feat-ring feat-ring-1"></div>
+      <div class="feat-ring feat-ring-2"></div>
+      <div class="feat-ring feat-ring-3"></div>
+      <div class="feat-crest">
+        <div class="feat-crest-letter">P</div>
+        <div class="feat-crest-name">Porsche</div>
+      </div>
+    </div>
+  </div>
+  <div class="featured-content reveal-r">
+    <div class="eyebrow" style="margin-bottom:8px">Marca estrella</div>
+    <h2 class="feat-title">Porsche:<br><em>la cima</em><br>del arte<br>automotriz</h2>
+    <p class="feat-body">Somos el destino de referencia en Nuevo León para los Porsche más codiciados del mercado. Desde el 911 hasta el Taycan, cada unidad es verificada con rigurosos estándares que superan los de las distribuidoras oficiales. Y si buscas algo especial, conseguimos tu Porsche <strong style="color:var(--white);font-weight:400;">0 km</strong> con acceso a configuraciones y colores exclusivos directo de fábrica.</p>
+    <div class="feat-data">
+      <div><span class="feat-datum-v">12+</span><span class="feat-datum-k">Unidades activas</span></div>
+      <div><span class="feat-datum-v">0 km</span><span class="feat-datum-k">Conseguimos nuevos</span></div>
+      <div><span class="feat-datum-v">48h</span><span class="feat-datum-k">Respuesta máx.</span></div>
+    </div>
+    <a href="https://wa.me/528112345678?text=Quiero%20ver%20los%20Porsches%20disponibles" target="_blank" class="btn-gold"><span>Ver Porsches disponibles</span></a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ━━━ CONSIGNACIÓN ━━━ -->
+<section class="consig sec" id="consignacion">
+  <div class="sec-inner">
+    <div class="consig-card">
+      <div class="consig-inner">
+        <div class="consig-content reveal-l">
+        <div class="eyebrow">Vende tu vehículo</div>
+        <h2 class="consig-title">Nosotros<br>vendemos tu<br>auto por <em>ti</em></h2>
+        <p style="font-size:15px;font-weight:300;color:var(--haze);line-height:1.8;margin-bottom:36px;">Deja el trabajo en nuestras manos. JART LUXE gestiona la publicación, la comunicación con compradores y el cierre del negocio con total transparencia.</p>
+        <ul class="benefits">
+          <li class="benefit">
+            <div class="benefit-icon"><svg viewBox="0 0 24 24"><path d="M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h11a2 2 0 012 2v3m0 0h3l3 4v3h-3m-3-7H8m8 7a2 2 0 11-4 0 2 2 0 014 0zm-8 0a2 2 0 11-4 0 2 2 0 014 0z"/></svg></div>
+            <div class="benefit-body"><strong>Envíos a todo México</strong><p>Coordinamos la entrega de tu vehículo a cualquier punto del país con total seguridad.</p></div>
+          </li>
+          <li class="benefit">
+            <div class="benefit-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+            <div class="benefit-body"><strong>Sin complicaciones</strong><p>Nos encargamos del proceso completo. Tú solo esperas la transferencia.</p></div>
+          </li>
+          <li class="benefit">
+            <div class="benefit-icon"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div>
+            <div class="benefit-body"><strong>Garantía de seguridad</strong><p>Verificamos identidad y solvencia de cada comprador potencial.</p></div>
+          </li>
+          <li class="benefit">
+            <div class="benefit-icon"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+            <div class="benefit-body"><strong>Máxima valuación</strong><p>Negociamos en tu nombre para obtener el mejor precio del mercado.</p></div>
+          </li>
+        </ul>
+        <a href="https://wa.me/528112345678?text=Quiero%20consignar%20mi%20veh%C3%ADculo%20con%20JART%20LUXE" target="_blank" class="btn-ghost">Iniciar consignación</a>
+      </div>
+      <div class="consig-form reveal-r">
+        <h3 class="form-title">Valúa tu vehículo</h3>
+        <p class="form-sub">Recibe una estimación en menos de 24 horas, sin compromiso.</p>
+        <div class="frow">
+          <div class="fgroup"><label class="flabel">Nombre</label><input type="text" class="finput" placeholder="Tu nombre"></div>
+          <div class="fgroup"><label class="flabel">Teléfono</label><input type="tel" class="finput" placeholder="+52 81 XXXX XXXX"></div>
+        </div>
+        <div class="frow">
+          <div class="fgroup"><label class="flabel">Marca</label>
+            <select class="fselect">
+              <option value="" disabled selected>Selecciona marca</option>
+              <option>Porsche</option><option>Mercedes-Benz</option><option>BMW</option>
+              <option>Audi</option><option>Ferrari</option><option>Lamborghini</option><option>Otra</option>
+            </select>
+          </div>
+          <div class="fgroup"><label class="flabel">Año</label><input type="number" class="finput" placeholder="Ej: 2021" min="2000" max="2025"></div>
+        </div>
+        <div class="fgroup"><label class="flabel">Modelo & versión</label><input type="text" class="finput" placeholder="Ej: 911 Turbo S, Carrera GTS..."></div>
+        <div class="frow" style="margin-top:4px">
+          <div class="fgroup"><label class="flabel">Kilometraje</label><input type="text" class="finput" placeholder="Ej: 15,000 km"></div>
+          <div class="fgroup" style="justify-content:flex-end;padding-top:22px">
+            <a href="#" onclick="submitForm(event)" class="btn-gold" style="width:100%;text-align:center"><span>Solicitar valuación</span></a>
+          </div>
+        </div>
+        <p style="font-size:12px;color:var(--fog);margin-top:12px;font-weight:300;">Sin costo · Sin compromiso · Confidencial</p>
+      </div>
+    </div><!-- /consig-card -->
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ━━━ TESTIMONIOS ━━━ -->
+<section class="testimonials sec">
+  <div class="sec-inner">
+    <div class="sec-head center reveal">
+      <div class="eyebrow">Clientes satisfechos</div>
+      <h2 class="sec-title">Lo que dicen<br>quienes <em>confían</em> en nosotros</h2>
+    </div>
+    <div class="test-grid">
+      <div class="test-card reveal">
+        <div class="test-q">"</div>
+        <p class="test-text">El proceso fue impecable. Desde la primera consulta hasta recibir las llaves. JART tiene un nivel de servicio que no esperaba encontrar en México.</p>
+        <div class="test-rule"></div>
+        <div class="test-name">Ricardo M.</div>
+        <div class="test-loc">Monterrey, NL</div>
+        <div class="test-car">Porsche 911 Turbo S · 2022</div>
+      </div>
+      <div class="test-card reveal" style="transition-delay:.12s">
+        <div class="test-q">"</div>
+        <p class="test-text">Vendieron mi BMW M5 en 11 días y al precio que yo pedía. El equipo de JART es profesional, discreto y extremadamente eficiente.</p>
+        <div class="test-rule"></div>
+        <div class="test-name">Andrea V.</div>
+        <div class="test-loc">San Pedro Garza García, NL</div>
+        <div class="test-car">BMW M5 Competition · Consignación</div>
+      </div>
+      <div class="test-card reveal" style="transition-delay:.24s">
+        <div class="test-q">"</div>
+        <p class="test-text">Llevo tres autos comprados con ellos. La confianza que generan es total. Historial verificado, precios honestos y siempre disponibles cuando los necesito.</p>
+        <div class="test-rule"></div>
+        <div class="test-name">Carlos A.</div>
+        <div class="test-loc">CDMX</div>
+        <div class="test-car">Mercedes AMG GLE 63S · 2023</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ━━━ CLUB JART ━━━ -->
+<section class="club sec" id="club">
+  <div class="sec-inner">
+    <div class="club-inner">
+      <div class="club-visual reveal-l">
+        <div class="club-grid-bg"></div>
+        <div class="club-emblem">
+          <div class="c-ring c-ring-1"></div>
+          <div class="c-ring c-ring-2"></div>
+          <div class="c-ring c-ring-3"></div>
+          <div class="c-j">J</div>
+          <div class="c-name">Club JART LUXE</div>
+        </div>
+      </div>
+      <div class="club-content reveal-r">
+        <div class="eyebrow">Membresía exclusiva</div>
+        <h2 class="club-title">Acceso<br><em>anticipado</em><br>al mercado</h2>
+        <p class="club-desc">Los miembros del Club JART reciben notificaciones de nuevas unidades antes de que sean publicadas al público, acceso a precios preferenciales y asesoría personalizada de nuestros especialistas.</p>
+        <ul class="club-perks">
+          <li class="club-perk"><div class="perk-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div> Acceso anticipado a todo el inventario</li>
+          <li class="club-perk"><div class="perk-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div> Alertas de Porsches y Mercedes exclusivos</li>
+          <li class="club-perk"><div class="perk-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div> Reporte semanal del mercado automotriz</li>
+          <li class="club-perk"><div class="perk-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div> Asesor personal asignado</li>
+        </ul>
+        <div class="club-form">
+          <input type="email" class="club-input" placeholder="Tu correo electrónico">
+          <button class="club-btn" onclick="joinClub(this)">Unirse</button>
+        </div>
+        <p style="font-size:12px;color:var(--fog);margin-top:12px;font-weight:300;">Sin spam · Solo oportunidades reales</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ━━━ FOOTER ━━━ -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">JART <span>LUXE</span></div>
+      <p class="footer-about">La boutique digital de automóviles premium de Nuevo León. Selección, confianza y exclusividad en cada vehículo.</p>
+      <div class="footer-contact-row">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        San Pedro Garza García, Nuevo León
+      </div>
+      <div class="footer-contact-row">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+        +52 (81) 1234 5678
+      </div>
+      <div class="footer-contact-row">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        contacto@jartluxe.mx
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Inventario</div>
+      <ul class="footer-links">
+        <li><a href="#">Porsche</a></li>
+        <li><a href="#">Mercedes-Benz</a></li>
+        <li><a href="#">BMW</a></li>
+        <li><a href="#">Audi</a></li>
+        <li><a href="#">Ver todo</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Servicios</div>
+      <ul class="footer-links">
+        <li><a href="#">Consignación</a></li>
+        <li><a href="#">Financiamiento</a></li>
+        <li><a href="#">Club JART</a></li>
+        <li><a href="#">Concierge IA</a></li>
+        <li><a href="#">Valuación</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">JART LUXE</div>
+      <ul class="footer-links">
+        <li><a href="#">Nosotros</a></li>
+        <li><a href="#">Proceso</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Contacto</a></li>
+        <li><a href="#">Privacidad</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 <span>JART LUXE</span>. Todos los derechos reservados · Nuevo León, México</div>
+    <div class="footer-socials">
+      <a href="https://instagram.com/jart_luxe" target="_blank" class="social-btn" rel="noopener">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </a>
+      <a href="https://wa.me/528112345678" target="_blank" class="social-btn" rel="noopener">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+      </a>
+      <a href="#" class="social-btn">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<!-- WA Float -->
+<a href="https://wa.me/528112345678?text=Hola%20JART%20LUXE%2C%20quiero%20informaci%C3%B3n" target="_blank" class="wa-float" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+/* ─── LOADER ─── */
+window.addEventListener('load', () => {
+  setTimeout(() => { document.getElementById('loader').classList.add('out'); }, 1800);
+});
+
+/* ─── CURSOR ─── */
+const cur = document.getElementById('cur');
+const ring = document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => {
+  mx=e.clientX; my=e.clientY;
+  cur.style.left=mx+'px'; cur.style.top=my+'px';
+});
+(function animRing() {
+  rx+=(mx-rx)*0.1; ry+=(my-ry)*0.1;
+  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+  requestAnimationFrame(animRing);
+})();
+document.querySelectorAll('a,button,.car-card,.brand-cell,.test-card').forEach(el => {
+  el.addEventListener('mouseenter',()=>{ ring.style.width='52px'; ring.style.height='52px'; ring.style.borderColor='rgba(201,169,110,0.7)'; cur.style.transform='translate(-50%,-50%) scale(0)'; });
+  el.addEventListener('mouseleave',()=>{ ring.style.width='32px'; ring.style.height='32px'; ring.style.borderColor='rgba(201,169,110,0.5)'; cur.style.transform='translate(-50%,-50%) scale(1)'; });
+});
+
+/* ─── NAV SCROLL ─── */
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
+});
+
+/* ─── REVEAL ─── */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('in'); } });
+}, { threshold:0.08, rootMargin:'0px 0px -40px 0px' });
+document.querySelectorAll('.reveal,.reveal-r,.reveal-l').forEach(el => io.observe(el));
+
+/* ─── STATS COUNTER ─── */
+function animateCounter(el, target, suffix) {
+  let start=0; const dur=1800; const step=16;
+  const inc = target/(dur/step);
+  const timer = setInterval(()=>{
+    start+=inc;
+    if(start>=target){ start=target; clearInterval(timer); }
+    el.textContent = (suffix==='%') ? Math.round(start)+'%' : (suffix==='+' ? '+'+Math.round(start) : Math.round(start));
+  },step);
+}
+const statsIO = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      statsIO.unobserve(e.target);
+      const nums = e.target.querySelectorAll('.stat-num');
+      const data = [['850','+'],['8','+'],[100,'%'],['12','']];
+      nums.forEach((el,i) => animateCounter(el, parseInt(data[i][0]), data[i][1]));
+    }
+  });
+}, { threshold:0.5 });
+const statsEl = document.querySelector('.stats');
+if(statsEl) statsIO.observe(statsEl);
+
+/* ─── FILTER ─── */
+function setFilter(btn, marca) {
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.car-card').forEach(c => {
+    const show = marca==='todos' || c.dataset.marca===marca;
+    c.style.display = show ? 'block' : 'none';
+  });
+}
+
+/* ─── FORM ─── */
+function submitForm(e) {
+  e.preventDefault();
+  alert('¡Gracias! Un especialista JART LUXE se pondrá en contacto contigo en menos de 24 horas.');
+}
+
+/* ─── CLUB ─── */
+function joinClub(btn) {
+  const inp = btn.previousElementSibling;
+  if(!inp.value || !inp.value.includes('@')) { inp.style.borderColor='rgba(255,80,80,0.5)'; return; }
+  inp.style.borderColor='rgba(34,197,94,0.5)';
+  btn.textContent='✓ Listo';
+  btn.style.background='#22c55e';
+}
+
+/* ─── AI CHAT (Claude API) ─── */
+const SYSTEM_PROMPT = `Eres el concierge virtual de JART LUXE, una boutique automotriz de lujo en Nuevo León, México. Representas la más alta sofisticación y discreción.
+
+INVENTARIO ACTUAL:
+- Porsche 911 GT3 2026 | 510HP | 0 km | Precio a consultar (nuevo)
+- Porsche 911 GT3 Weissach 2026 | 510HP | 0 km | Precio a consultar (Weissach Package)
+- Porsche Cayenne Turbo GT 2026 | 640HP | 0 km | Precio a consultar (nuevo)
+- Porsche 911 GT3 Touring 2026 | 510HP | 0 km | Precio a consultar (nuevo)
+- Porsche 911T 1970 RWB Original | Flat-6 | 78,971 km | Precio a consultar (clásico)
+- Audi R8 V10 Twin Turbo 2017 | 610HP | Km a consultar | Precio a consultar
+- Dodge Charger Hellcat Widebody 2023 | 707HP | 18,000 km | Precio a consultar
+- Ford Mustang Hard Top 1966 | V8 | Clásico | Precio a consultar
+- Toyota Supra MK4 2JZ-GE 1993 | 165,000 km | Precio a consultar (JDM ícono)
+
+SERVICIOS: Consignación, financiamiento (20% enganche, 12-60 meses), Club JART (acceso anticipado), envíos nacionales, valuaciones sin costo.
+
+INSTRUCCIONES: Responde siempre en español, con tono refinado y conciso (máximo 3 párrafos). Si el cliente muestra interés, sugiere amablemente contactar por WhatsApp: +52 81 1234 5678. Nunca inventes modelos o precios que no están en el inventario.`;
+
+const chatHistory = [];
+
+async function sendMsg() {
+  const inp = document.getElementById('chatInp');
+  const msg = inp.value.trim();
+  if (!msg) return;
+  addMsg(msg, 'user');
+  inp.value = '';
+  chatHistory.push({ role:'user', content:msg });
+  addTyping();
+  try {
+    const res = await fetch('/api/chat', {
+      method:'POST',
+      headers:{ 'Content-Type':'application/json' },
+      body: JSON.stringify({
+        system: SYSTEM_PROMPT,
+        messages: chatHistory
+      })
+    });
+    const data = await res.json();
+    removeTyping();
+    const reply = data.reply || 'Disculpa, hubo un inconveniente. Por favor contáctanos en WhatsApp.';
+    chatHistory.push({ role:'assistant', content:reply });
+    addMsg(reply, 'bot');
+  } catch(err) {
+    removeTyping();
+    addMsg('En este momento no puedo procesar tu consulta. Por favor escríbenos directamente a +52 81 1234 5678.', 'bot');
+  }
+}
+
+function addMsg(text, type) {
+  const c = document.getElementById('chatMsgs');
+  const d = document.createElement('div');
+  d.className = 'msg ' + type;
+  const t = new Date().toLocaleTimeString('es',{hour:'2-digit',minute:'2-digit'});
+  d.innerHTML = `<div class="msg-bubble">${text}</div><div class="msg-time">${t}</div>`;
+  c.appendChild(d);
+  c.scrollTop = c.scrollHeight;
+}
+
+function addTyping() {
+  const c = document.getElementById('chatMsgs');
+  const d = document.createElement('div');
+  d.className='msg bot'; d.id='typing';
+  d.innerHTML='<div class="msg-bubble"><div class="typing-dots"><span></span><span></span><span></span></div></div>';
+  c.appendChild(d); c.scrollTop=c.scrollHeight;
+}
+
+function removeTyping() { const t=document.getElementById('typing'); if(t) t.remove(); }
+
+function chatKey(e) { if(e.key==='Enter') sendMsg(); }
+
+function fillChat(txt) { document.getElementById('chatInp').value=txt; sendMsg(); }
+
+/* ─── PHOTO SLIDERS ─── */
+function initSliders() {
+  document.querySelectorAll('[data-slider]').forEach(slider => {
+    if (slider.dataset.sliderInit) return;
+    slider.dataset.sliderInit = '1';
+    const slides = slider.querySelector('.car-slides');
+    const dotsWrap = slider.querySelector('.slider-dots');
+    const total = slider.querySelectorAll('.car-slide').length;
+    let cur = 0, startX = 0, isDragging = false, dragDelta = 0;
+
+    // Build dots
+    for (let i = 0; i < total; i++) {
+      const d = document.createElement('button');
+      d.className = 'slider-dot' + (i === 0 ? ' active' : '');
+      d.onclick = () => goTo(i);
+      dotsWrap.appendChild(d);
+    }
+
+    function goTo(idx) {
+      if (idx < 0) idx = total - 1;
+      if (idx >= total) idx = 0;
+      cur = idx;
+      slides.style.transform = `translateX(-${cur * 100}%)`;
+      dotsWrap.querySelectorAll('.slider-dot').forEach((d, i) => d.classList.toggle('active', i === cur));
+    }
+
+    // Touch/drag
+    slider.addEventListener('mousedown', e => { startX = e.clientX; isDragging = true; slides.style.transition = 'none'; });
+    slider.addEventListener('mousemove', e => { if (!isDragging) return; dragDelta = e.clientX - startX; slides.style.transform = `translateX(calc(-${cur*100}% + ${dragDelta}px))`; });
+    slider.addEventListener('mouseup', () => { if (!isDragging) return; isDragging = false; slides.style.transition = ''; if (Math.abs(dragDelta) > 40) { goTo(dragDelta < 0 ? cur + 1 : cur - 1); } else { goTo(cur); } dragDelta = 0; });
+    slider.addEventListener('mouseleave', () => { if (!isDragging) return; isDragging = false; slides.style.transition = ''; goTo(cur); dragDelta = 0; });
+
+    slider.addEventListener('touchstart', e => { startX = e.touches[0].clientX; slides.style.transition = 'none'; }, { passive: true });
+    slider.addEventListener('touchmove', e => { dragDelta = e.touches[0].clientX - startX; slides.style.transform = `translateX(calc(-${cur*100}% + ${dragDelta}px))`; }, { passive: true });
+    slider.addEventListener('touchend', () => { slides.style.transition = ''; if (Math.abs(dragDelta) > 40) { goTo(dragDelta < 0 ? cur + 1 : cur - 1); } else { goTo(cur); } dragDelta = 0; });
+
+    // Store goTo reference for arrow buttons
+    slider._goTo = goTo;
+  });
+}
+
+function sliderMove(btn, dir) {
+  const slider = btn.closest('[data-slider]');
+  if (!slider) return;
+  const dots = slider.querySelectorAll('.slider-dot');
+  const total = slider.querySelectorAll('.car-slide').length;
+  let cur = [...dots].findIndex(d => d.classList.contains('active'));
+  slider._goTo((cur + dir + total) % total);
+}
+
+// Init on load and after any dynamic changes
+document.addEventListener('DOMContentLoaded', initSliders);
+setTimeout(initSliders, 200);
+</script>
+</body>
+</html>
